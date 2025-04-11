@@ -3,9 +3,19 @@ import { BiRightArrowAlt } from "react-icons/bi";
 ---
 
 
-<h1 class="text-5xl font-semibold text-gray-900">Librería Canto Mortal</h1>
-<p class="text-balance mt-5 max-w-3xl text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. At deleniti ducimus ipsum consequatur voluptates mollitia obcaecati sunt...</p>
+<section class="flex mt-10">
+    <article class="title">
+        <h1 class="text-5xl font-semibold text-gray-900">Librería Canto Mortal</h1>
+        <p class="text-balance mt-5 max-w-3xl text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. At deleniti ducimus ipsum consequatur voluptates mollitia obcaecati sunt...</p>
+    </article>
+    <article class="slide-current-price">
+        <h3>Nombre del libro</h3>
+        <span class="hashtags">#hash1 #hash2</span>
+        <span>40,56$ BCV</span>
+        <span>30$ Divisas</span>
+    </article>
+</section>
 
-<button class="flex items-center py-2 pl-5 pr-8 bg-[#2D2F33] text-white cursor-pointer rounded-full text-sm mt-5 hover:-translate-y-1 transition-all relative">
+<a href="/books" class="flex items-center py-2 pl-5 pr-8 bg-[#2D2F33] text-white cursor-pointer rounded-full text-sm mt-5 hover:-translate-y-1 transition-all relative w-fit">
     Quiero leer <BiRightArrowAlt className="absolute right-4 -rotate-45"/>
-</button>
+</a>

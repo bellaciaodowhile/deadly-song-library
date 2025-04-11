@@ -14,19 +14,18 @@ import Sidebar from "../components/Sidebar.astro"
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 	</head>
 	<body>
 
 		<main class="flex relative">
 			<span class="absolute w-[60%] bg-[#EFEDE2] h-screen top-0 right-0"></span>
 			<Sidebar />
-		
 			<div class="content pl-[190px] py-[30px] pr-[30px] relative">
 				<slot />
 			</div>
-		   
 		</main>
-		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 	</body>
 </html>
 
@@ -38,5 +37,6 @@ import Sidebar from "../components/Sidebar.astro"
 		height: 100%;
 		font-family: "Noto Sans JP", sans-serif;
 		overflow: hidden;
+		background: #FBFBF4;
 	}
 </style>

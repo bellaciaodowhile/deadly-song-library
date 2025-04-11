@@ -1,38 +1,165 @@
 ---
 import CarouselSwiper from '../components/react/CarouselSwiper.jsx'
+import white from '../assets/books/white.webp'
+import beauty from '../assets/books/beauty.webp'
+import blood from '../assets/books/blood.webp'
+import harry from '../assets/books/harry.jpg'
+import animals from '../assets/books/animals.jpg'
+import { BiArrowBack  } from "react-icons/bi";
+
+const books = [
+    {
+        name: 'Blancanieves',
+        hash: '#BlancaNieves #Disney',
+        price: '20',
+        discount: '10',
+        image: white
+    },
+    {
+        name: 'Bella y Bestia',
+        hash: '#Beauty #Disney',
+        price: '40',
+        discount: '20',
+        image: beauty
+    },
+    {
+        name: 'Blood Fire',
+        hash: '#Fantasy #Disney',
+        price: '30',
+        discount: '15',
+        image: blood
+    },
+    {
+        name: 'Animales Fantásticos',
+        hash: '#World #Fantasy',
+        price: '10',
+        discount: '120',
+        image: animals
+    },
+    {
+        name: 'Harry Poter',
+        hash: '#Magic #Potter',
+        price: '2120',
+        discount: '1210',
+        image: harry
+    },
+];
+
+// const books = [white, beauty, blood, harry, animals, white, beauty, blood, harry, animals]
 ---
-<!-- <h1>Carousel</h1> -->
-<!-- <CarouselSwiper /> -->
-<div class="flex mt-48 gap-10">
-    <div class="item transition-all cursor-pointer"></div>
-    <div class="item transition-all cursor-pointer active"></div>
-    <div class="item transition-all cursor-pointer"></div>
-    <div class="item transition-all cursor-pointer"></div>
-    <div class="item transition-all cursor-pointer"></div>
-    <div class="item transition-all cursor-pointer"></div>
-    <div class="item transition-all cursor-pointer"></div>
-    <div class="item transition-all cursor-pointer"></div>
-    <div class="item transition-all cursor-pointer"></div>
-    <div class="item transition-all cursor-pointer"></div>
-    <div class="item transition-all cursor-pointer"></div>
-</div>
-<style scoped>
-    .item {
-        width: 200px;
-        height: 300px;
-        background: gray;
-        &:hover {
-            transform: translateY(-5px);
+<div class="flex flex-col items-end">
+    <div class="flex gap-2">
+        <button class="swiper-btn-prev cursor-pointer active:scale-90 border-1 border-gray-500 p-3 rounded-full hover:scale-95 transition-all">
+            <BiArrowBack className='text-xl text-gray-500' />
+        </button>
+        <button class="swiper-btn-next cursor-pointer active:scale-90 border-1 border-gray-500 p-3 rounded-full hover:scale-95 transition-all">
+            <BiArrowBack className='text-xl text-gray-500 rotate-180'/>
+        </button>
+    </div>
+
+    <swiper-container class="mySwiper" init="false">
+        {
+            books.map((book, index) => (
+                <swiper-slide key={index} class="cursor-pointer" data-name={JSON.stringify(book)}>
+                    <img loading="lazy" src={book.image.src} />
+                </swiper-slide>
+            ))
         }
-        &.active {
-            transform: scale(1.3) translateY(-33px);
-            margin: auto 50px;
-            box-shadow: 0 0 15px 20px #00000026;
-            background: #313131;
-            &:hover {
-                transform: scale(1.3) translateY(-38px);
+    </swiper-container>
+</div>
+<script>
+    // const white = 'path/to/white.webp';
+    // const beauty = 'path/to/beauty.webp';
+    // const blood = 'path/to/blood.webp';
+    // const harry = 'path/to/harry.jpg';
+    // const animals = 'path/to/animals.jpg';
+
+    // const books = [white, beauty, blood, harry, animals, white, beauty, blood, harry, animals];
+
+    const swiperEl = document.querySelector('swiper-container');
+    const slideCurrentPrice = document.querySelector('.slide-current-price');
+    console.log(slideCurrentPrice)
+    Object.assign(swiperEl, {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 10,
+        pagination: false,
+        slideActiveClass: 'active-book',
+        slideNextClass: 'next-book',
+        slideToClickedSlide: true,
+        on: {
+            slideChange: function(x) {
+                const activeIndex = x.activeIndex + 1;
+                const activeSlide = x.slides[activeIndex];
+                const dataSlide = JSON.parse(activeSlide.attributes['data-name'].textContent)
+                // console.log('Active slide element:', activeSlide);
+                console.log('slideChange')
+                console.log(x)
+                console.log({
+                    index: activeIndex,
+                    slide: dataSlide
+                })
+
+                // slideCurrentPrice
+                
             }
+        },
+        navigation: {
+            nextEl: '.swiper-btn-next',
+            prevEl: '.swiper-btn-prev',
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            768: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+            },
+            1024: {
+                slidesPerView: 4.5,
+                spaceBetween: 30,
+            },
+        },
+    });
+    swiperEl.initialize();
+</script>
+<style scoped>
+    swiper-container {
+        width: 1024px;
+        height: 420px;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: end;
+    }
+
+    swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        transition: all 300ms ease-in-out;
+        img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
         }
     }
-</style>
+    .active-book {
+        /* background: red; */
+    }
+    .next-book {
+        background: #000;
+        transform: scale(1.3) translateY(-34px);
+        margin-right: 60px !important;
+        margin-left: 20px;
+        box-shadow: 0 0 15px #00000026;
+    }
 
+</style>
