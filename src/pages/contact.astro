@@ -1,8 +1,149 @@
 ---
 import "../styles/global.css";
 import Layout from '../layouts/Layout.astro';
+import logoText from "../assets/logo-text.jpg";
 ---
 
 <Layout>
-	<h1 class="text-5xl">¡Contáctame!</h1>
+	<section>
+		<h1 class="text-center text-5xl text-gray-950 font-bold mt-5">¡Sígueme!</h1>
+
+		<img src={logoText.src} alt="Logo Text" class="max-w-[200px] rounded-full mt-10 mx-auto">
+
+		<ul class="social__list">
+			<li class="social__item">
+				<button class="social-btn instagram"><i class="fa fa-instagram"></i></button>
+			</li>
+			<li class="social__item">
+				<button class="social-btn tiktok"><i class="fa fa-tiktok"></i></button>
+			</li>
+		</ul>
+
+
+	</section>
+
 </Layout>
+<style scoped>
+	.social__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+
+	.social__item {
+		padding: 30px;
+	}
+
+	.social-btn {
+		background: transparent;
+		border: none;
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		cursor: pointer;
+		transition: 0.4s;
+	}
+
+	.social-btn:hover {
+		transform: translateY(-5px) scale(1.05);
+	}
+
+	.social-btn:hover::after {
+		width: 75px;
+		height: 45px;
+	}
+
+	.social-btn::before {
+		content: "";
+		border-radius: 50%;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 2;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.social-btn::after {
+		content: "";
+		position: absolute;
+		z-index: 1;
+		top: 100%;
+		left: 50%;
+		transform: translate(-40%, -65%);
+		width: 70px;
+		height: 40px;
+		border-radius: 50%;
+		transition: 0.5s;
+	}
+
+	.social-btn .fab {
+		position: absolute;
+		z-index: 3;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 4.5em;
+		color: #fff;
+		text-shadow: -2px -1px 2px black;
+	}
+
+	.social-btn.instagram::before {
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1)), linear-gradient(180deg, #f99257 0%, #e42d59 25%, #bb2d93 65%, #7738c5 100%);
+	}
+
+	.social-btn.instagram::after {
+		filter: blur(9px);
+		background: radial-gradient(#fff 20%, #bb2d93 50%, #7738c5 80%);
+		box-shadow: 0 0 10px rgba(119, 56, 197, 0.5);
+	}
+
+	.social-btn.pinterest::before {
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(189, 8, 28, 0.8)), #BD081C;
+	}
+
+	.social-btn.pinterest::after {
+		filter: blur(9px);
+		background: radial-gradient(#fff 20%, #BD081C 50%);
+		box-shadow: 0 0 10px rgba(189, 8, 28, 0.5);
+	}
+
+	.social-btn.snapchat::before {
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.15)), #FFFC00;
+	}
+
+	.social-btn.snapchat::after {
+		filter: blur(9px);
+		background: radial-gradient(transparent, rgba(0, 0, 0, 0.05)), radial-gradient(#fff 20%, #FFFC00 50%);
+		box-shadow: 0 0 10px #fffc00;
+	}
+
+	.social-btn.twitter::before {
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.15)), #08a0e9;
+	}
+
+	.social-btn.twitter::after {
+		filter: blur(9px);
+		background: radial-gradient(#fff 20%, #08a0e9 50%);
+		box-shadow: 0 0 10px #08a0e9;
+	}
+
+	.social-btn.tiktok::before {
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(-35deg, #69C9D0 30%, #EE1D52 75%);
+	}
+
+	.social-btn.tiktok::after {
+		filter: blur(7px);
+		background: radial-gradient(#fff 20%, #69C9D0 50%, #EE1D52 70%);
+		box-shadow: 0 0 10px rgba(105, 201, 208, 0.5);
+	}
+</style>

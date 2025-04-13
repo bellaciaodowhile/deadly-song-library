@@ -92,8 +92,7 @@ const books = [
         </button>
     </div>
     <div class="max-w-[1024px]">
-
-        <swiper-container class="mySwiper" init="false">
+        <swiper-container class="mySwiper w-[100%]" init="false">
             {
                 books.map((book, index) => (
                     <swiper-slide key={index} class="cursor-pointer" data-name={JSON.stringify(book)}>
@@ -104,9 +103,11 @@ const books = [
                 ))
             }
         </swiper-container>
+        <p>&nbsp;</p>
     </div>
-
+    
 </div>
+<p class="lg:text-right text-[#404040] mt-5">¡También traemos libros por encargo! <br> Puedes pagar tus libros en cuotas</p>
 <script>
     // const white = 'path/to/white.webp';
     // const beauty = 'path/to/beauty.webp';
@@ -146,7 +147,7 @@ const books = [
                 const cashEl = document.querySelector('.cash');
                 const buyHero = document.querySelector('.buy-hero');
 
-                if (buyHero) buyHero.href = `https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro - ${dataSlide.name}. ¿Sigue disponible?`
+                if (buyHero) buyHero.href = `https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${dataSlide.name}. ¿Sigue disponible?`
                 if (nameEl) nameEl.textContent = dataSlide.name;
                 if (hashtagsEl) hashtagsEl.textContent = dataSlide.hash;
                 if (bcvEl) bcvEl.textContent = dataSlide.price;
@@ -158,13 +159,17 @@ const books = [
             prevEl: '.swiper-btn-prev',
         },
         breakpoints: {
+            320: {
+                slidesPerView: 6,
+                spaceBetween: 20
+            },
             640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
+                slidesPerView: 4.5,
+                spaceBetween: 30,
             },
             768: {
-                slidesPerView: 4,
-                spaceBetween: 40,
+                slidesPerView: 4.5,
+                spaceBetween: 30,
             },
             1280: {
                 slidesPerView: 4.5,
@@ -176,7 +181,6 @@ const books = [
 </script>
 <style scoped>
     swiper-container {
-        width: 1024px;
         height: 420px;
         margin-left: auto;
         margin-right: auto;

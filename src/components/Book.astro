@@ -4,12 +4,49 @@ import beauty from '../assets/books/beauty.webp'
 import white from '../assets/books/white.webp'
 import blood from '../assets/books/blood.webp'
 import harry from '../assets/books/harry.jpg'
+import axios from 'axios'
 
+import { supabase } from '../lib/supabase.js';
+
+let books = [];
+let error = null;
+try {
+    const { data, error: fetchError } = await supabase
+        .from('data')
+        .select();
+    if (fetchError) {
+        throw fetchError;
+    }
+    if (Array.isArray(data)) {
+        books = data; // Use the data directly if it's an array
+    } else {
+        books = Array.isArray(data) ? data : [data]; // Convert to array if not iterable
+    }
+} catch (err) {
+    error = err.message;
+}
+books = JSON.parse(books[0]?.catalogue)
+const bcv = await axios.get('https://ve.dolarapi.com/v1/dolares/oficial')
+const paralelo = await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
+
+books.forEach((value, index, array) => {
+    value.BCV = ((value.Precio * paralelo.data.promedio) / bcv.data.promedio).toFixed(2)
+})
+const listBooks = books || [];
+
+console.log(listBooks)
+
+
+
+
+
+// console.log(listBooks)
+let searchTerm = '';
 ---
 
 <main>
     <h1 class="text-center text-5xl text-gray-950 font-bold mt-5">Catálogo</h1>
-    <form class="max-w-lg mx-auto mt-10">
+    <!-- <form class="max-w-lg mx-auto mt-10">
         <label for="default-search"
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
         <div class="relative">
@@ -20,81 +57,36 @@ import harry from '../assets/books/harry.jpg'
                         d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
             </div>
-            <input type="search" id="default-search"
+            <input type="search" id="default-search" 
                 class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Encuentra tus libros..." required />
             <button type="submit"
                 class="text-white absolute end-2.5 bottom-2.5 bg-[#404040] transition-all hover:bg-[#404040cc] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 cursor-pointer">Buscar</button>
         </div>
-    </form>
+    </form> -->
 
     <div class="main-wrapper mt-10">
         <div class="popular-books">
             <div class="book-cards">
-                <div class="book-card">
-                    <div class="content-wrapper">
-                        <img src={animals.src} alt="" class="book-card-img">
-                        <div class="card-content">
-                            <div class="book-name text-3xl font-bold">Las pruebas de Apolo: La profecía oscura</div>
-                            <div class="book-by text-xl">Autor</div>
-                            <div class="book-sum card-sum text-xl md:text-4xl font-bold text-[#404040]">$50 BCV</div>
-                            <div class="likes uppercase text-font">
-                               pago en divisas&nbsp;<b>$<span>40</span></b>
+
+                { listBooks.map((book, index) => (
+                   <div class="book-card mt-[100px] md:mt-10">
+                        <div class="content-wrapper flex-col items-center sm:flex-row">
+                            <img src={`${book.Imagen}?raw=true`} alt="" class="book-card-img">
+                            <div class="card-content">
+                                <div class="book-name text-2xl md:text-3xl font-bold">{book.NombreLibro}</div>
+                                <div class="book-by text-xl">{book.Autor}</div>
+                                <div class="book-sum card-sum text-xl md:text-4xl font-bold text-[#404040]">${book.BCV} BCV</div>
+                                <div class="likes uppercase text-font">
+                                    pago en divisas&nbsp;<b>$<span>{book.Precio}</span></b>
+                                </div>
+                                <a target="_blank" href={`https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${book.NombreLibro}. ¿Sigue disponible?`} class="bg-[#404040] mt-2 inline-block py-1 text-white font-semibold px-10 uppercase cursor-pointer transition-all hover:-translate-y-1 rounded-full">
+                                    comprar
+                                </a>
                             </div>
-                            <button class="bg-[#404040] mt-2 py-1 text-white font-semibold px-10 uppercase cursor-pointer transition-all hover:-translate-y-1 rounded-full">
-                                comprar
-                            </button>
                         </div>
                     </div>
-                </div>
-                <div class="book-card">
-                    <div class="content-wrapper">
-                        <img src={animals.src} alt="" class="book-card-img">
-                        <div class="card-content">
-                            <div class="book-name text-3xl font-bold">Titulo del libro</div>
-                            <div class="book-by text-xl">Autor</div>
-                            <div class="book-sum card-sum text-xl md:text-4xl font-bold text-[#404040]">$50 BCV</div>
-                            <div class="likes uppercase text-font">
-                               pago en divisas&nbsp;<b>$<span>40</span></b>
-                            </div>
-                            <button class="bg-[#404040] mt-2 py-1 text-white font-semibold px-10 uppercase cursor-pointer transition-all hover:-translate-y-1 rounded-full">
-                                comprar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="content-wrapper">
-                        <img src={animals.src} alt="" class="book-card-img">
-                        <div class="card-content">
-                            <div class="book-name text-3xl font-bold">Titulo del libro</div>
-                            <div class="book-by text-xl">Autor</div>
-                            <div class="book-sum card-sum text-xl md:text-4xl font-bold text-[#404040]">$50 BCV</div>
-                            <div class="likes uppercase text-font">
-                               pago en divisas&nbsp;<b>$<span>40</span></b>
-                            </div>
-                            <button class="bg-[#404040] mt-2 py-1 text-white font-semibold px-10 uppercase cursor-pointer transition-all hover:-translate-y-1 rounded-full">
-                                comprar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="content-wrapper">
-                        <img src={animals.src} alt="" class="book-card-img">
-                        <div class="card-content">
-                            <div class="book-name text-3xl font-bold">Titulo del libro</div>
-                            <div class="book-by text-xl">Autor</div>
-                            <div class="book-sum card-sum text-xl md:text-4xl font-bold text-[#404040]">$50 BCV</div>
-                            <div class="likes uppercase text-font">
-                               pago en divisas&nbsp;<b>$<span>40</span></b>
-                            </div>
-                            <button class="bg-[#404040] mt-2 py-1 text-white font-semibold px-10 uppercase cursor-pointer transition-all hover:-translate-y-1 rounded-full">
-                                comprar
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     </div>
@@ -182,7 +174,6 @@ import harry from '../assets/books/harry.jpg'
         border: none;
         font-weight: 600;
         padding: 0 10px 0 40px;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%238b939c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' class='feather feather-search'%3e%3ccircle cx='11' cy='11' r='8'/%3e%3cpath d='M21 21l-4.35-4.35'/%3e%3c/svg%3e");
         background-repeat: no-repeat;
         background-size: 15px;
         background-position: 15px 50%;
@@ -290,33 +281,6 @@ import harry from '../assets/books/harry.jpg'
 
     .book-cell:nth-child(5) {
         background-color: #cbb5e2;
-    }
-
-    .flickity-page-dots {
-        display: none;
-    }
-
-    .flickity-prev-next-button .arrow {
-        fill: #d6d6d6;
-    }
-
-    .flickity-prev-next-button svg {
-        left: 25%;
-        top: 25%;
-        width: 50%;
-        height: 50%;
-    }
-
-    .flickity-prev-next-button.previous {
-        left: 15px;
-    }
-
-    .flickity-prev-next-button.next {
-        right: 15px;
-    }
-
-    .flickity-viewport {
-        overflow: visible;
     }
 
     .book-photo {
@@ -542,7 +506,6 @@ import harry from '../assets/books/harry.jpg'
 
     .popular-books {
         flex-grow: 1;
-        padding: 0 30px 50px;
     }
 
     .genre {
@@ -680,7 +643,7 @@ import harry from '../assets/books/harry.jpg'
 
     .book-cards {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         grid-column-gap: 40px;
         grid-row-gap: 40px;
         padding-top: 40px;
@@ -688,9 +651,8 @@ import harry from '../assets/books/harry.jpg'
     }
 
     .book-card {
-        margin-top: 20px;
         background-color: #fff;
-        height: 270px;
+        height: 100%;
         box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.1);
         border-radius: 4px;
         display: flex;
@@ -724,9 +686,9 @@ import harry from '../assets/books/harry.jpg'
     }
 
     .book-name {
-        text-overflow: ellipsis;
+        /* text-overflow: ellipsis; */
         overflow: hidden;
-        white-space: nowrap;
+        /* white-space: nowrap; */
     }
 
     .book-by {
@@ -772,22 +734,6 @@ import harry from '../assets/books/harry.jpg'
         display: flex;
         border-bottom: 1px solid #ebedef;
         position: relative;
-    }
-
-    .content-wrapper:before {
-        content: "";
-        position: absolute;
-        background-color: #8f98a9;
-        background-color: #aaaebc;
-        box-shadow: 0 -6px 0 0 #aaaebc, 0 6px 0 0 #aaaebc;
-        width: 4px;
-        height: 4px;
-        border: 0;
-        padding: 0;
-        right: 12px;
-        top: 17px;
-        border-radius: 50%;
-        margin-left: auto;
     }
 
     .like-profile {

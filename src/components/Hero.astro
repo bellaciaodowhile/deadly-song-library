@@ -3,24 +3,24 @@ import { BiRightArrowAlt } from "react-icons/bi";
 ---
 
 
-<section class="grid grid-cols-2 mt-5 justify-between">
+<section class="grid grid-cols-1 gap-3 lg:grid-cols-2 mt-5 justify-between">
     <article class="title">
-        <h1 class="text-5xl font-semibold text-gray-900">Librería Canto Mortal</h1>
-        <p class="text-balance mt-5 max-w-3xl text-gray-700">Solo trabajamos con libros originales. Tenemos pick-up <br>y delivery en Caracas. Hacemos envíos a toda Venezuela. ¡Traemos libros por encargo! Paga tus libros en cuotas.</p>
+        <h1 class="text-3xl md:text-5xl font-semibold text-gray-900">Librería Canto Mortal</h1>
+        <p class="text-balance mt-5 w-[250px] sm:w-full max-w-2xl text-gray-700">Solo trabajamos con libros originales. Tenemos pick-up <br>y delivery en Caracas. Hacemos envíos a toda Venezuela.</p>
         <a href="/books" class="flex items-center py-2 pl-5 pr-8 bg-[#2D2F33] text-white cursor-pointer rounded-full text-sm mt-5 hover:-translate-y-1 transition-all relative w-fit">
             Ver más libros <BiRightArrowAlt className="absolute right-4 -rotate-45"/>
         </a>
     </article>
-    <article class="slide-current-price pl-10 flex flex-col items-end pr-28">
+    <article class="slide-current-price pl-0 mt-5 lg:mt-0 lg:pl-10 flex flex-col md:items-start lg:items-end pr-28">
         <!-- <span class="hashtags text-red-800">#hash1 #hash2</span> -->
         <!-- <h3 class="text-4xl font-semibold text-gray-900 name-book">Nombre del libro</h3> -->
-        <div class="text-5xl font-bold text-gray-950">$<span class="bcv">40,56</span> <span>BCV</span></div>
-        <div class="font-bold text-3xl">$<span class="cash">30</span> Divisas</div>
+        <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#404040]">$<span class="bcv">40,56</span> <span>BCV</span></div>
+        <div class="text-2xl uppercase">pago en divisas <b class="text-[#404040]">$<span class="cash">30</span></b></div>
         <div class="flex gap-0 items-center mt-3">
             <!-- <button class="border-2 text-white font-semibold border-[#91294E] py-3 px-10 cursor-pointer transition-all bg-[#91294E] hover:text-[#91294E] hover:border-white rounded-full ">
                 $<span class="cash"></span> Divisas
             </button> -->
-            <a target="_blank" href="#" class="bg-[#EFEDE3] border-2 text-[#91294E] rounded-full font-semibold border-[#91294E] py-3 px-10 uppercase cursor-pointer transition-all hover:bg-[#91294E] hover:text-white hover:border-white buy-hero">
+            <a target="_blank" href="#" class="bg-[#EFEDE3] border-2 text-[#404040] rounded-full font-semibold border-[#404040] py-3 px-10 uppercase cursor-pointer transition-all hover:bg-[#404040] hover:text-white hover:border-white buy-hero">
                 comprar
             </a>
         </div>
