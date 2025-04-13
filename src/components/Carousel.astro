@@ -7,78 +7,110 @@ import harry from '../assets/books/harry.jpg'
 import animals from '../assets/books/animals.jpg'
 import { BiArrowBack  } from "react-icons/bi";
 
-const books = [
-    {
-        name: 'Blancanieves',
-        hash: 'BlancaNieves Disney',
-        price: '20,19',
-        discount: '10',
-        image: white
-    },
-    {
-        name: 'Bella y Bestia',
-        hash: 'Beauty Disney',
-        price: '40,20',
-        discount: '20',
-        image: beauty
-    },
-    {
-        name: 'Blood Fire',
-        hash: 'Fantasy Disney',
-        price: '30,82',
-        discount: '15',
-        image: blood
-    },
-    {
-        name: 'Animales Fantásticos',
-        hash: 'World Fantasy',
-        price: '10,10',
-        discount: '120',
-        image: animals
-    },
-    {
-        name: 'Harry Poter',
-        hash: 'Magic Potter',
-        price: '20,83',
-        discount: '12',
-        image: harry
-    },
-    {
-        name: 'Blancanieves',
-        hash: 'BlancaNieves Disney',
-        price: '20',
-        discount: '10',
-        image: white
-    },
-    {
-        name: 'Bella y Bestia',
-        hash: 'Beauty Disney',
-        price: '40',
-        discount: '20',
-        image: beauty
-    },
-    {
-        name: 'Blood Fire',
-        hash: 'Fantasy Disney',
-        price: '30',
-        discount: '15',
-        image: blood
-    },
-    {
-        name: 'Animales Fantásticos',
-        hash: 'World Fantasy',
-        price: '10',
-        discount: '12',
-        image: animals
-    },
-    {
-        name: 'Harry Poter',
-        hash: 'Magic Potter',
-        price: '20',
-        discount: '10',
-        image: harry
-    },
-];
+import axios from 'axios'
+import { supabase } from '../lib/supabase.js';
+
+let books = [];
+let error = null;
+try {
+    const { data, error: fetchError } = await supabase
+        .from('data')
+        .select();
+    if (fetchError) {
+        throw fetchError;
+    }
+    if (Array.isArray(data)) {
+        books = data; // Use the data directly if it's an array
+    } else {
+        books = Array.isArray(data) ? data : [data]; // Convert to array if not iterable
+    }
+} catch (err) {
+    error = err.message;
+}
+books = JSON.parse(books[0]?.catalogue)
+const bcv = await axios.get('https://ve.dolarapi.com/v1/dolares/oficial')
+const paralelo = await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
+
+const listBooks = books.filter((book) => book.Destacado === 'SI');
+listBooks.forEach((value, index, array) => {
+    value.BCV = ((value.Precio * paralelo.data.promedio) / bcv.data.promedio).toFixed(2)
+})
+
+console.log(listBooks)
+
+// const books = [
+//     {
+//         name: 'Blancanieves',
+//         hash: 'BlancaNieves Disney',
+//         price: '20,19',
+//         discount: '10',
+//         image: white
+//     },
+//     {
+//         name: 'Bella y Bestia',
+//         hash: 'Beauty Disney',
+//         price: '40,20',
+//         discount: '20',
+//         image: beauty
+//     },
+//     {
+//         name: 'Blood Fire',
+//         hash: 'Fantasy Disney',
+//         price: '30,82',
+//         discount: '15',
+//         image: blood
+//     },
+//     {
+//         name: 'Animales Fantásticos',
+//         hash: 'World Fantasy',
+//         price: '10,10',
+//         discount: '120',
+//         image: animals
+//     },
+//     {
+//         name: 'Harry Poter',
+//         hash: 'Magic Potter',
+//         price: '20,83',
+//         discount: '12',
+//         image: harry
+//     },
+//     {
+//         name: 'Blancanieves',
+//         hash: 'BlancaNieves Disney',
+//         price: '20',
+//         discount: '10',
+//         image: white
+//     },
+//     {
+//         name: 'Bella y Bestia',
+//         hash: 'Beauty Disney',
+//         price: '40',
+//         discount: '20',
+//         image: beauty
+//     },
+//     {
+//         name: 'Blood Fire',
+//         hash: 'Fantasy Disney',
+//         price: '30',
+//         discount: '15',
+//         image: blood
+//     },
+//     {
+//         name: 'Animales Fantásticos',
+//         hash: 'World Fantasy',
+//         price: '10',
+//         discount: '12',
+//         image: animals
+//     },
+//     {
+//         name: 'Harry Poter',
+//         hash: 'Magic Potter',
+//         price: '20',
+//         discount: '10',
+//         image: harry
+//     },
+// ];
+// console.log(books)
 
 // const books = [white, beauty, blood, harry, animals, white, beauty, blood, harry, animals]
 ---
@@ -94,10 +126,10 @@ const books = [
     <div class="max-w-[1024px]">
         <swiper-container class="mySwiper w-[100%]" init="false">
             {
-                books.map((book, index) => (
+                listBooks.map((book, index) => (
                     <swiper-slide key={index} class="cursor-pointer" data-name={JSON.stringify(book)}>
                         {/* <img loading="lazy" src={book.image.src} /> */}
-                        <div class="image transition-all" style={`background-image: url('${book.image.src}')`}></div>
+                        <div class="image transition-all" style={`background-image: url('${book.Imagen}?raw=true')`}></div>
                         
                     </swiper-slide>
                 ))
@@ -150,8 +182,8 @@ const books = [
                 if (buyHero) buyHero.href = `https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${dataSlide.name}. ¿Sigue disponible?`
                 if (nameEl) nameEl.textContent = dataSlide.name;
                 if (hashtagsEl) hashtagsEl.textContent = dataSlide.hash;
-                if (bcvEl) bcvEl.textContent = dataSlide.price;
-                if (cashEl) cashEl.textContent = dataSlide.discount;
+                if (bcvEl) bcvEl.textContent = dataSlide.BCV;
+                if (cashEl) cashEl.textContent = dataSlide.Precio;
             }
         },
         navigation: {
