@@ -179,7 +179,7 @@ console.log(listBooks)
                 const cashEl = document.querySelector('.cash');
                 const buyHero = document.querySelector('.buy-hero');
 
-                if (buyHero) buyHero.href = `https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${dataSlide.name}. ¿Sigue disponible?`
+                if (buyHero) buyHero.href = `https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${dataSlide.NombreLibro}. ¿Sigue disponible?`
                 if (nameEl) nameEl.textContent = dataSlide.name;
                 if (hashtagsEl) hashtagsEl.textContent = dataSlide.hash;
                 if (bcvEl) bcvEl.textContent = dataSlide.BCV;
