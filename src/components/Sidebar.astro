@@ -48,21 +48,28 @@ import { BiHomeAlt2, BiBookContent, BiStar, BiMessage, BiAnchor } from "react-ic
 <nav class="tabbar fixed bottom-0 w-full z-10 md:hidden">
     <div>
         <input id="menu-1" type="radio" name="menu" checked>
+        
         <label for="menu-1">
-            <BiHomeAlt2
+            <a href="/">
+                <BiHomeAlt2
                 className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-11 h-11 p-2 rounded-full" />
+            </a>
             <span>Inicio</span>
         </label>
         <input id="menu-2" type="radio" name="menu">
         <label for="menu-2">
-            <BiBookContent
+            <a href="/books">
+                <BiBookContent
                 className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-11 h-11 p-2 rounded-full" />
+            </a>
             <span>Catálogo</span>
         </label>
         <input id="menu-3" type="radio" name="menu">
         <label for="menu-3">
-            <BiAnchor
+            <a href="/weare">
+                <BiAnchor
                 className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-11 h-11 p-2 rounded-full" />
+            </a>
             <span>Nosotros</span>
         </label>
         <span></span>
