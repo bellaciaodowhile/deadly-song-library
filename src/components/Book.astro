@@ -30,11 +30,16 @@ const bcv = await axios.get('https://ve.dolarapi.com/v1/dolares/oficial')
 const paralelo = await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
 
 books.forEach((value, index, array) => {
-    value.BCV = ((value.Precio * paralelo.data.promedio) / bcv.data.promedio).toFixed(2)
+    if (!isNaN(((value.Precio * paralelo.data.promedio) / bcv.data.promedio).toFixed(2))) {
+        console.log(value)
+        if (!value['__EMPTY_2']) {
+            value.BCV = ((value.Precio * paralelo.data.promedio) / bcv.data.promedio).toFixed(2)
+        }
+    }
 })
 const listBooks = books || [];
 
-console.log(listBooks)
+// console.log(listBooks)
 
 
 
