@@ -26,7 +26,39 @@ import { supabase } from '../lib/supabase.js';
 //     error = err.message;
 // }
 // books = JSON.parse(books[0]?.catalogue)
-const DATA_FIXED = [
+---
+
+<main>
+    <h1 class="text-center text-5xl text-gray-950 font-bold mt-5">Catálogo</h1>
+    <div class="search-top flex justify-center mt-10">
+        <form onsubmit="return false;" class="max-w-lg w-full">
+            <label for="default-search"
+                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </div>
+                <input type="search" id="default-search" 
+                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Encuentra tus libros..."/>
+                <button type="submit"
+                    class="text-white absolute end-2.5 bottom-2.5 bg-[#404040] transition-all hover:bg-[#404040cc] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 cursor-pointer">Buscar</button>
+            </div>
+        </form>
+    </div>
+    <div class="main-wrapper mt-10">
+        <div class="popular-books">
+            <div class="book-cards"></div>
+        </div>
+    </div>
+</main>
+
+<script type="text/javascript" defer>
+    const DATA_FIXED = [
     {
         "NombreLibro": "Al final mueren los dos",
         "Precio": 25,
@@ -1106,65 +1138,140 @@ const DATA_FIXED = [
         "Destacado": "NO"
     }
 ];
-const bcv = await axios.get('https://ve.dolarapi.com/v1/dolares/oficial')
-const paralelo = await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
 
-DATA_FIXED.forEach((value, index, array) => {
-    value.BCV = ((value.Precio * paralelo.data.promedio) / bcv.data.promedio).toFixed(2)
-})
+const input = document.querySelector("#default-search");
+const result = document.querySelector('.book-cards');
+
+window.onscroll = function() {scrollFunction()};
+console.log('sd')
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.querySelector(".search-top").style.background = "red";
+  } else {
+    document.querySelector(".search-top").style.background = "blue";
+  }
+}
+
+
+async function DOLLARS() {
+    return {
+        bcv: await axios.get('https://ve.dolarapi.com/v1/dolares/oficial'),
+        paralelo: await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
+    }
+}
+
+(async () => {
+    try {
+        const response = await DOLLARS();
+        const bcv = response.bcv.data
+        const paralelo = response.paralelo.data
+        console.log({
+            // bcv, paralelo
+        });
+        DATA_FIXED.forEach((item) => {
+            item.BCV = ((item.Precio * paralelo.promedio) / bcv.promedio).toFixed(2)
+        })
+
+        data(DATA_FIXED, '')
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+})();
+
+
 const listBooks = DATA_FIXED || [];
 
-// console.log(listBooks)
-let searchTerm = '';
----
+let debounceTimer;
 
-<main>
-    <h1 class="text-center text-5xl text-gray-950 font-bold mt-5">Catálogo</h1>
-    <!-- <form class="max-w-lg mx-auto mt-10">
-        <label for="default-search"
-            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
-        <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
-            </div>
-            <input type="search" id="default-search" 
-                class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Encuentra tus libros..." required />
-            <button type="submit"
-                class="text-white absolute end-2.5 bottom-2.5 bg-[#404040] transition-all hover:bg-[#404040cc] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 cursor-pointer">Buscar</button>
-        </div>
-    </form> -->
+function data(items, text) {
+    // Clear the result container
+    result.innerHTML = '';
+    console.log(result);
 
-    <div class="main-wrapper mt-10">
-        <div class="popular-books">
-            <div class="book-cards">
+    // Filter books based on the search text
+    const filteredBooks = items.filter((book) => {
+        return (
+            String(book.NombreLibro).toLowerCase().includes(text) ||
+            String(book.Autor).toLowerCase().includes(text)
+        );
+    });
 
-                { listBooks.map((book, index) => (
-                   <div class="book-card mt-[100px] md:mt-10">
-                        <div class="content-wrapper flex-col items-center sm:flex-row">
-                            <img src={`${book.Imagen}?raw=true`} alt="" class="book-card-img">
-                            <div class="card-content">
-                                <div class="book-name text-2xl md:text-3xl font-bold">{book.NombreLibro}</div>
-                                <div class="book-by text-xl">{book.Autor}</div>
-                                <div class="book-sum card-sum text-xl md:text-4xl font-bold text-[#404040]">${book.BCV} BCV</div>
-                                <div class="likes uppercase text-font">
-                                    pago en divisas&nbsp;<b>$<span>{book.Precio}</span></b>
-                                </div>
-                                <a target="_blank" href={`https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${book.NombreLibro}. ¿Sigue disponible?`} class="bg-[#404040] mt-2 inline-block py-1 text-white font-semibold px-10 uppercase cursor-pointer transition-all hover:-translate-y-1 rounded-full">
-                                    comprar
-                                </a>
-                            </div>
+    // If there are filtered books, create the HTML
+    if (filteredBooks.length > 0) {
+        let html = ''; // Initialize an empty string to build the HTML
+
+        filteredBooks.forEach(book => {
+            const bookImage = book.Imagen.split('/')
+            const image = bookImage[bookImage.length - 1]
+            console.log(image)
+            html += `
+            <div class="book-card" style="margin-top: 40px; background-color: #fff; height: 100%; box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.1); border-radius: 4px; display: flex; flex-direction: column; cursor: pointer; padding: 0 0 20px 20px; color: #8b939c;">
+                <div class="content-wrapper" style="display: flex; border-bottom: 1px solid #ebedef; position: relative;">
+                    <img src="./images/${image}" alt="" class="book-card-img" style="width: 160px; margin-top: -35px; border-radius: 2px; box-shadow: 0px 1px 7px 2px #c7c9d3; border-bottom: 1px solid #dcddde; object-fit: cover; margin-bottom: 20px; transition: 0.3s ease; height: fit-content;">
+                    <div class="card-content" style="color: #3d4954; padding: 30px; overflow: hidden; position: relative;">
+                        <div class="book-name" style="overflow: hidden; color: #3d4954; font-size: 2rem; font-weight: bold;">${book.NombreLibro}</div>
+                        <div class="book-by" style="color: #8b939c; margin-top: 4px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-size: 1.25rem;">${book.Autor}</div>
+                        <div class="book-sum card-sum" style="line-height: 1.6em; font-size: 1.25rem; font-weight: bold; color: #404040;">${book.BCV} BCV</div>
+                        <div class="likes" style="text-transform: uppercase; font-size: 1rem;">
+                            pago en divisas&nbsp;<b>$<span>${book.Precio}</span></b>
                         </div>
+                        <a target="_blank" href="https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${book.NombreLibro}. ¿Sigue disponible?" style="background-color: #404040; margin-top: 0.5rem; display: inline-block; padding: 0.25rem 2.5rem; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
+                            comprar
+                        </a>
                     </div>
-                ))}
-            </div>
-        </div>
-    </div>
-</main>
+                </div>
+            </div>`;
+        });
+
+        // Update the innerHTML once
+        result.innerHTML = html;
+
+        // Update styles after rendering new content
+        updateStyles();
+    } else {
+        result.innerHTML = 'No se encuentran resultados.'
+    }
+}
+
+// Debounce function
+function debounce(func, delay) {
+    return function(...args) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// Update styles function
+function updateStyles() {
+    const contentWrapper = [...document.querySelectorAll('.content-wrapper')];
+    if (window.innerWidth <= 520) {
+        contentWrapper.forEach(el => {
+            el.style.fontSize = '14px';
+            el.style.display = 'flex';
+            el.style.flexDirection = 'column';
+            el.style.alignItems = 'center';
+            el.querySelector('.book-name').style.fontSize = '25px';
+        });
+    } else {
+        contentWrapper.forEach(el => {
+            el.style.fontSize = '14px';
+            el.style.display = 'flex';
+            el.style.flexDirection = 'row';
+            el.style.alignItems = 'start';
+            el.querySelector('.book-name').style.fontSize = '30px';
+        });
+    }
+}
+
+input.oninput = debounce((e) => {
+    const text = e.target.value.toLowerCase();
+    data(listBooks, text);
+}, 300);
+
+
+
+</script>
 
 <style scoped>
     :root {
@@ -1184,20 +1291,6 @@ let searchTerm = '';
 
     img {
         max-width: 100%;
-    }
-
-    html {
-        box-sizing: border-box;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    body {
-        background-color: #fff;
-        background-attachment: fixed;
-        font-family: var(--body-font);
-        color: var(--body-color);
-        font-weight: 400;
-        margin: 0;
     }
 
     .likes,
