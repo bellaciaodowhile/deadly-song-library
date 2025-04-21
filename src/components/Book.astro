@@ -1151,6 +1151,11 @@ function scrollFunction() {
     document.querySelector(".search-top").style.background = "blue";
   }
 }
+function removeAccents(str) {
+    return String(str)
+        .normalize('NFD') // Normalize to "decomposed" form
+        .replace(/[\u0300-\u036f]/g, ''); // Remove diacritics
+}
 
 
 async function DOLLARS() {
@@ -1186,14 +1191,15 @@ let debounceTimer;
 
 function data(items, text) {
     // Clear the result container
+    text = removeAccents(text)
     result.innerHTML = '';
     console.log(result);
 
     // Filter books based on the search text
     const filteredBooks = items.filter((book) => {
         return (
-            String(book.NombreLibro).toLowerCase().includes(text) ||
-            String(book.Autor).toLowerCase().includes(text)
+            String(removeAccents(book.NombreLibro)).toLowerCase().includes(text) ||
+            String(removeAccents(book.Autor)).toLowerCase().includes(text)
         );
     });
 
