@@ -43,7 +43,7 @@ import { supabase } from '../lib/supabase.js';
                     </svg>
                 </div>
                 <input type="search" id="default-search" 
-                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50"
                     placeholder="Encuentra tus libros..."/>
                 <button type="submit"
                     class="text-white absolute end-2.5 bottom-2.5 bg-[#404040] transition-all hover:bg-[#404040cc] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 cursor-pointer">Buscar</button>
@@ -1144,13 +1144,13 @@ const result = document.querySelector('.book-cards');
 
 window.onscroll = function() {scrollFunction()};
 console.log('sd')
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    document.querySelector(".search-top").style.background = "red";
-  } else {
-    document.querySelector(".search-top").style.background = "blue";
-  }
-}
+// function scrollFunction() {
+//   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+//     document.querySelector(".search-top").style.background = "red";
+//   } else {
+//     document.querySelector(".search-top").style.background = "blue";
+//   }
+// }
 function removeAccents(str) {
     return String(str)
         .normalize('NFD') // Normalize to "decomposed" form
