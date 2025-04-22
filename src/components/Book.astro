@@ -1198,8 +1198,8 @@ function data(items, text) {
     // Filter books based on the search text
     const filteredBooks = items.filter((book) => {
         return (
-            String(removeAccents(book.NombreLibro)).toLowerCase().includes(text) ||
-            String(removeAccents(book.Autor)).toLowerCase().includes(text)
+            String(removeAccents(book.NombreLibro)).toLowerCase().includes(text.trim()) ||
+            String(removeAccents(book.Autor)).toLowerCase().includes(text.trim())
         );
     });
 
