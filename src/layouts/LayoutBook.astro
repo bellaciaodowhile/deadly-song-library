@@ -1,5 +1,4 @@
 ---
-import Sidebar from "../components/Sidebar.astro"
 const { title } = Astro.props
 ---
 
@@ -25,7 +24,6 @@ const { title } = Astro.props
 		<span class="absolute w-[60%] bg-[#EFEDE2] h-screen top-0 right-0"></span>
 
 		<main class="flex relative">
-			<Sidebar />
 			<div class="content pl-[20px] sm:pl-[40px] md:pl-[190px] md:py-[30px] pr-[20px] relative m-auto pb-[100px] md:pb-10">
 				<slot />
 			</div>

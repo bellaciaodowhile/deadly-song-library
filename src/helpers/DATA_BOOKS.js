@@ -1,4 +1,4 @@
-export const DATA_BOOKS = [
+const DATA_BOOKS = [
     {
         "NombreLibro": "Al final mueren los dos",
         "Precio": 25,
@@ -1078,3 +1078,29 @@ export const DATA_BOOKS = [
         "Destacado": "NO"
     }
 ];
+
+async function DOLLARS() {
+    return {
+        bcv: await axios.get('https://ve.dolarapi.com/v1/dolares/oficial'),
+        paralelo: await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
+    }
+}
+
+(async () => {
+    try {
+        const response = await DOLLARS();
+        const bcv = response.bcv.data
+        const paralelo = response.paralelo.data
+        console.log({
+            bcv, paralelo
+        });
+        DATA_BOOKS.forEach((item) => {
+            item.BCV = ((item.Precio * paralelo.promedio) / bcv.promedio).toFixed(2)
+        })
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+})();
+
+export default DATA_BOOKS;

@@ -1210,7 +1210,8 @@ function data(items, text) {
         filteredBooks.forEach(book => {
             const bookImage = book.Imagen.split('/')
             const image = bookImage[bookImage.length - 1]
-            console.log(image)
+            const name = String(book.NombreLibro).split(' ').map(x => removeAccents(x).toLowerCase()).join('-');
+            console.log(name)
             html += `
             <div class="book-card" style="margin-top: 40px; background-color: #fff; height: 100%; box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.1); border-radius: 4px; display: flex; flex-direction: column; cursor: pointer; padding: 0 0 20px 20px; color: #8b939c;">
                 <div class="content-wrapper" style="display: flex; border-bottom: 1px solid #ebedef; position: relative;">
@@ -1225,6 +1226,10 @@ function data(items, text) {
                         <a target="_blank" href="https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${book.NombreLibro}. ¿Sigue disponible?" style="background-color: #404040; margin-top: 0.5rem; display: inline-block; padding: 0.25rem 2.5rem; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
                             comprar
                         </a>
+                        <a href="/books/${name}" style="background-color: #404040; margin-top: 0.5rem; display: inline-block; padding: 0.25rem 2.5rem; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
+                            Ver
+                        </a>
+                        
                     </div>
                 </div>
             </div>`;
