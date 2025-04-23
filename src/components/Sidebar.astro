@@ -1,8 +1,8 @@
 ---
 import logo from '../assets/logo-only.png';
 import { BiHomeAlt2, BiBookContent, BiStar, BiMessage, BiAnchor } from "react-icons/bi";
+const currentUrl = Astro.url.pathname
 ---
-
 <div class="w-[130px] h-full fixed flex-col items-center justify-between py-10 z-10 hidden md:flex">
     <span class="absolute top-0 right-0 w-[1px] h-[100%] gradient-sidebar"></span>
     <div class="logo">
@@ -12,19 +12,19 @@ import { BiHomeAlt2, BiBookContent, BiStar, BiMessage, BiAnchor } from "react-ic
         <li>
             <a href="/" class="bg-red-500 w-10 h-10">
                 <BiHomeAlt2
-                    className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 active w-10 h-10 p-2 rounded-full" />
+                    className={`${currentUrl == '/' ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
         <li>
             <a href="/books" class="bg-red-500 w-10 h-10">
                 <BiBookContent
-                    className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full" />
+                    className={`${currentUrl.includes('/books') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
         <li>
             <a href="/weare" class="bg-red-500 w-10 h-10">
                 <BiAnchor
-                    className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full" />
+                    className={`${currentUrl.includes('/weare') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
         <!-- <li>
@@ -47,7 +47,7 @@ import { BiHomeAlt2, BiBookContent, BiStar, BiMessage, BiAnchor } from "react-ic
 
 <nav class="tabbar fixed bottom-0 w-full z-10 md:hidden">
     <div>
-        <input id="menu-1" type="radio" name="menu" checked>
+        <input id="menu-1" type="radio" name="menu" checked={currentUrl === '/' ? true : false}>
         
         <label for="menu-1">
             <a href="/">
@@ -56,7 +56,7 @@ import { BiHomeAlt2, BiBookContent, BiStar, BiMessage, BiAnchor } from "react-ic
             </a>
             <span>Inicio</span>
         </label>
-        <input id="menu-2" type="radio" name="menu">
+        <input id="menu-2" type="radio" name="menu" checked={currentUrl === '/books' ? true : false}>
         <label for="menu-2">
             <a href="/books">
                 <BiBookContent
@@ -64,7 +64,7 @@ import { BiHomeAlt2, BiBookContent, BiStar, BiMessage, BiAnchor } from "react-ic
             </a>
             <span>Catálogo</span>
         </label>
-        <input id="menu-3" type="radio" name="menu">
+        <input id="menu-3" type="radio" name="menu" checked={currentUrl === '/weare' ? true : false}>
         <label for="menu-3">
             <a href="/weare">
                 <BiAnchor
