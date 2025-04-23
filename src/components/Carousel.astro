@@ -1120,114 +1120,92 @@ listBooks.forEach((value, index, array) => {
 })
 ---
 <div class="flex flex-col items-end relative">
-    <div class="flex gap-2 absolute z-20 top-5 right-5">
-        <button class="swiper-btn-prev cursor-pointer active:scale-90 border-1 border-gray-500 p-3 rounded-full hover:scale-95 transition-all">
-            <BiArrowBack className='text-xl text-gray-500' />
-        </button>
-        <button class="swiper-btn-next cursor-pointer active:scale-90 border-1 border-gray-500 p-3 rounded-full hover:scale-95 transition-all">
-            <BiArrowBack className='text-xl text-gray-500 rotate-180'/>
-        </button>
-    </div>
-    <div class="h-[300px] xl:h-[400px] w-full skeleton mt-20"></div>
-    <div class="max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1410px]">
-        <swiper-container class="h-[400px] lg:h-[480px] mySwiper w-[100%] mt-10 invisible" init="false">
-            {
-                listBooks.map((book, index) => (
-                    <swiper-slide key={index} class={`cursor-pointer h-[300px] lg:h-[300px] xl:h-[400px]`} data-name={JSON.stringify(book)} >
-                        <div class="image transition-all swiper-lazy" style={`background-image: url('${ book.Imagen }?raw=true')`}></div>
-                    </swiper-slide>
-                ))
-            }
-        </swiper-container>
-        <p>&nbsp;</p>
-    </div>
-    
+    <div class="h-[300px] xl:h-[400px] w-full skeleton mt-20 hidden"></div>
+    <section class="splide mt-5" aria-label="Libros más destacados">
+        <div class="splide__track">
+              <ul class="splide__list">
+                  {
+                    listBooks.map((book, index) => (
+                        <li class={`splide__slide pt-[100px] transition-all flex items-end slide__${index}`} data-name={JSON.stringify(book)}>
+                            <img src={`${ book.Imagen }?raw=true`} width="90%" alt={book.NombreLibro} />
+                        </li>
+                    ))
+                }
+              </ul>
+        </div>
+    </section>
+
 </div>
 <p class="lg:text-right text-[#404040] mt-5 pr-14">¡También traemos libros por encargo! <br> Puedes pagar tus libros en cuotas</p>
 <script>
-    // const white = 'path/to/white.webp';
-    // const beauty = 'path/to/beauty.webp';
-    // const blood = 'path/to/blood.webp';
-    // const harry = 'path/to/harry.jpg';
-    // const animals = 'path/to/animals.jpg';
 
-    // const books = [white, beauty, blood, harry, animals, white, beauty, blood, harry, animals];
-
-    const swiperEl = document.querySelector('swiper-container');
-    const slideCurrentPrice = document.querySelector('.slide-current-price');
-    // console.log(slideCurrentPrice)
-    Object.assign(swiperEl, {
-        loop: true,
-        slidesPerView: 1,
-        spaceBetween: 10,
+    let splide = new Splide( '.splide', {
+        type   : 'loop',
+        perPage: 4.5,
+        perMove: 1,
+        classes: {
+            arrows: 'absolute -top-14 right-0 z-20 gap-2 flex',
+            arrow: 'w-12 h-12 z-20 inline-flex cursor-pointer active:scale-90 border-1 border-gray-500 p-3 rounded-full hover:scale-95 transition-all items-center justify-center fill-[#404040]',
+            prev: 'flex rotate-z-[180deg]',
+        },
+        padding: '20px',
         pagination: false,
-        slideActiveClass: 'active-book',
-        slideNextClass: 'next-book',
-        slideToClickedSlide: true,
-        on: {
-            slideChange: function(x) {
-                
-                const activeIndex = x.activeIndex + 1;
-                const activeSlide = x.slides[activeIndex];
-                const dataSlide = JSON.parse(activeSlide?.attributes['data-name'].textContent)
-
-                // console.log(dataSlide)
-                // console.log('Active slide element:', activeSlide);
-                console.log('slideChange')
-                // console.log(x)
-                // console.log({
-                //     index: activeIndex,
-                //     slide: dataSlide
-                // })
-
-                const nameEl = document.querySelector('.name-book');
-                const hashtagsEl = document.querySelector('.hashtags');
-                const bcvEl = document.querySelector('.bcv');
-                const cashEl = document.querySelector('.cash');
-                const buyHero = document.querySelector('.buy-hero');
-
-                // if (nameEl) nameEl.textContent = dataSlide.name; activeSlide.attributes['data-name'].textContent
-                if (buyHero) buyHero.href = `https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${dataSlide.NombreLibro}. ¿Sigue disponible?`
-                if (nameEl) nameEl.textContent = dataSlide.NombreLibro
-                if (hashtagsEl) hashtagsEl.textContent = dataSlide.hash;
-                if (bcvEl) bcvEl.textContent = dataSlide.BCV;
-                if (cashEl) cashEl.textContent = dataSlide.Precio;
-            }
-        },
-        navigation: {
-            nextEl: '.swiper-btn-next',
-            prevEl: '.swiper-btn-prev',
-        },
         breakpoints: {
-            320: {
-                slidesPerView: 6,
-                spaceBetween: 20
+            1280: {
+                perPage: 4.5,
+            },
+            720: {
+                perPage: 4.5,
             },
             640: {
-                slidesPerView: 4.5,
-                spaceBetween: 30,
-            },
-            768: {
-                slidesPerView: 4.5,
-                spaceBetween: 30,
-            },
-            1280: {
-                slidesPerView: 4.5,
-                spaceBetween: 30,
-            },
-            1410: {
-                slidesPerView: 5.5,
-                spaceBetween: 30,
+                perPage: 1,
             },
         },
+        isNavigation: true,
+        updateOnMove: true
     });
-    swiperEl.initialize();
-    setTimeout(() => {
-        document.querySelector('.skeleton')?.classList.add('hidden')
-        document.querySelector('.mySwiper')?.classList.remove('invisible')
-    }, 2000);
+    splide.mount();
+    splide.on('move', function (e) {
+        const data = JSON.parse(document.querySelector(`.slide__${e}`)?.attributes['data-name'].textContent);
+
+        const nameEl = document.querySelector('.name-book');
+        const hashtagsEl = document.querySelector('.hashtags');
+        const bcvEl = document.querySelector('.bcv');
+        const cashEl = document.querySelector('.cash');
+        const buyHero = document.querySelector('.buy-hero');
+
+        if (buyHero) buyHero.href = `https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${data.NombreLibro}. ¿Sigue disponible?`
+        if (nameEl) nameEl.textContent = data.NombreLibro
+        if (hashtagsEl) hashtagsEl.textContent = data.hash;
+        if (bcvEl) bcvEl.textContent = data.BCV;
+        if (cashEl) cashEl.textContent = data.Precio;
+    } );
+
+
+    
 </script>
 <style scoped>
+    svg {
+        fill: red;
+    }
+    img {
+        height: 100%;
+    }
+    .splide__track--nav>.splide__list>.splide__slide {
+        border: none;
+    }
+    .splide__track--nav>.splide__list>.splide__slide.is-active {
+        border: none;
+        img {
+            box-shadow: 0 0 10px #00000026;
+        }
+    }
+    .splide__track--nav>.splide__list>.splide__slide.is-active + .splide__slide{
+        transform: scale(1.15) translateY(-50px);
+        img {
+            box-shadow: 0 0 10px #00000026;
+        }
+    }
     .skeleton {
         position: relative;
         overflow: hidden;

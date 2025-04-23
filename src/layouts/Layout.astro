@@ -28,20 +28,25 @@ const { title, image } = Astro.props
 		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.8.4/axios.min.js" integrity="sha512-2A1+/TAny5loNGk3RBbk11FwoKXYOMfAK6R7r4CpQH7Luz4pezqEGcfphoNzB7SM4dixUoJsKkBsB6kg+dNE2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+
 	</head>
 	<body>
 		<span class="absolute w-[60%] bg-[#EFEDE2] h-screen top-0 right-0"></span>
 
 		<main class="flex relative">
 			<Sidebar />
-			<div class="content pl-[20px] sm:pl-[40px] md:pl-[190px] md:py-[30px] pr-[20px] relative m-auto pb-[100px] md:pb-10">
+			<div class="content pl-[20px] sm:pl-[40px] md:pl-[190px] md:py-[30px] pr-[20px] lg:pr-[50px] relative m-auto pb-[100px] md:pb-10">
 				<slot />
 			</div>
 			<a href="https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Vengo de la página web. Me gustaría obtener más información 📚" target="_blank" class="fixed bottom-20 md:bottom-10 right-5 lg:right-10 z-20 bg-white rounded-full">
 				<img src="https://cdn-icons-png.freepik.com/256/2496/2496112.png?semt=ais_hybrid" class="rounded-full w-[50px] lg:w-[70px]" alt="Logo WhatsApp">
 			</a>
 		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+		
 	</body>
 </html>
 
