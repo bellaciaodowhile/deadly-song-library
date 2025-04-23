@@ -47,7 +47,7 @@ const currentUrl = Astro.url.pathname
 
 <nav class="tabbar fixed bottom-0 w-full z-10 md:hidden">
     <div>
-        <input id="menu-1" type="radio" name="menu" checked={currentUrl === '/' ? true : false}>
+        <input id="menu-1" type="radio" name="menu" class={currentUrl === '/' ? 'active' : ''}>
         
         <label for="menu-1">
             <a href="/">
@@ -56,7 +56,7 @@ const currentUrl = Astro.url.pathname
             </a>
             <span>Inicio</span>
         </label>
-        <input id="menu-2" type="radio" name="menu" checked={currentUrl === '/books' ? true : false}>
+        <input id="menu-2" type="radio" name="menu" class={currentUrl === '/books' ? 'active' : ''}>
         <label for="menu-2">
             <a href="/books">
                 <BiBookContent
@@ -64,7 +64,7 @@ const currentUrl = Astro.url.pathname
             </a>
             <span>Catálogo</span>
         </label>
-        <input id="menu-3" type="radio" name="menu" checked={currentUrl === '/weare' ? true : false}>
+        <input id="menu-3" type="radio" name="menu" class={currentUrl === '/weare' ? 'active' : ''}>
         <label for="menu-3">
             <a href="/weare">
                 <BiAnchor
@@ -72,7 +72,6 @@ const currentUrl = Astro.url.pathname
             </a>
             <span>Nosotros</span>
         </label>
-        <span></span>
     </div>
 </nav>
 
@@ -167,25 +166,25 @@ const currentUrl = Astro.url.pathname
         display: none;
     }
 
-    .tabbar>div input:nth-of-type(1):checked+label+input+label+input+label+span {
+    .tabbar>div input:nth-of-type(1).active+label+input+label+input+label+span {
         --x: 0;
     }
 
-    .tabbar>div input:nth-of-type(2):checked+label+input+label+span {
+    .tabbar>div input:nth-of-type(2).active+label+input+label+span {
         --x: 100%;
     }
 
-    .tabbar>div input:nth-of-type(3):checked+label+span {
+    .tabbar>div input:nth-of-type(3).active+label+span {
         --x: 200%;
     }
 
-    .tabbar>div input:checked+label svg {
+    .tabbar>div input.active+label svg {
         --y: -24px;
         --s: 1;
         color: var(--icon-active);
     }
 
-    .tabbar>div input:checked+label span {
+    .tabbar>div input.active+label span {
         --s: 1;
         --y: -11px;
         opacity: 1;
