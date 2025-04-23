@@ -41,38 +41,7 @@ const currentUrl = Astro.url.pathname
     </div>
 </div>
 
-<!-- <div class="mobile fixed bottom-0 left-0 w-full h-[80px] bg-[#404040] z-10">
-    <BiHomeAlt2 className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full" />
-</div> -->
-
 <nav class="tabbar fixed bottom-0 w-full z-10 md:hidden">
-    <!-- <div>
-        <input id="menu-1" type="radio" name="menu" class={currentUrl === '/' ? 'active' : ''}>
-        
-        <label for="menu-1">
-            <a href="/">
-                <BiHomeAlt2
-                className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-11 h-11 p-2 rounded-full" />
-            </a>
-            <span>Inicio</span>
-        </label>
-        <input id="menu-2" type="radio" name="menu" class={currentUrl === '/books' ? 'active' : ''}>
-        <label for="menu-2">
-            <a href="/books">
-                <BiBookContent
-                className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-11 h-11 p-2 rounded-full" />
-            </a>
-            <span>Catálogo</span>
-        </label>
-        <input id="menu-3" type="radio" name="menu" class={currentUrl === '/weare' ? 'active' : ''}>
-        <label for="menu-3">
-            <a href="/weare">
-                <BiAnchor
-                className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-11 h-11 p-2 rounded-full" />
-            </a>
-            <span>Nosotros</span>
-        </label>
-    </div> -->
     <ul class="flex items-center gap-5 justify-around">
         <li>
             <a href="/" class="bg-red-500 w-10 h-10">
@@ -94,7 +63,6 @@ const currentUrl = Astro.url.pathname
         </li>
     </ul>
 </nav>
-
 
 <style scoped>
     .active {
