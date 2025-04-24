@@ -1,0 +1,191 @@
+---
+import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
+---
+
+<button class="icon-cart fixed cursor-pointer transition-all hover:scale-90 lg:bottom-[130px] right-5 lg:right-10 bottom-[140px] w-[50px] h-[50px] lg:h-[70px] lg:w-[70px] rounded-full bg-[#404040] grid place-items-center scale-0">
+    <div class="absolute w-6 h-6 bg-amber-700 rounded-full top-0 right-0 text-white grid place-items-center number text-sm lg:text-md z-40">4</div>
+    <img src="https://www.svgrepo.com/show/493949/cart-lines-1.svg" width="30" style="filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(80deg) brightness(107%) contrast(101%);" />
+</button>
+
+<div class="cart-list fixed w-full md:w-[450px] bg-white shadow-2xl right-0 top-0 z-40 h-full overflow-auto scale-0 transition-all">
+    <div class="content p-10">
+        <BiChevronLeft className="text-3xl cursor-pointer cart-list--close" />
+        <h1 class="text-5xl md:text-5xl font-bold text-gray-950 text-center">Carrito</h1>
+        <div class="cards mt-16 flex flex-col gap-16 pb-52 cart-items">
+
+
+            <div class="shadow-2xl">
+                <div class="p-3 flex items-center gap-3">
+                    <img src="http://localhost:4321/images/AL%20FINAL%20MUEREN%20LOS%20DOS.jpg" class="shadow-2xl" width="150" alt="BookName" />
+                    <div class="flex flex-col w-full">
+                        <div class="flex flex-col text-[#404040]">
+                            <h2 class="text-xl font-bold text-gray-600">Al Final Todos Muerden</h2>
+                            <span class="text-md uppercase"><b>31.82</b> bcv</span>
+                            <span class="text-sm uppercase"><b>$25</b> divisas</span>
+                        </div>
+
+                        <div class="flex justify-around items-center mt-5">
+                            <button class="cursor-pointer transition-all active:scale-90 grid place-items-center text-4xl font-semibold text-[#404040]">-</button>
+                            <span class="text-6xl font-bold text-[#404040]">3</span>
+                            <button class="cursor-pointer transition-all active:scale-90 grid place-items-center text-4xl font-semibold text-[#404040]">+</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="fixed w-full md:w-[450px] px-10 py-5 right-0 bottom-0 bg-[#404040] text-white flex flex-col items-end">
+        <div class="text-2xl font-bold">Total:</div>
+        <div class="font-bold total-bcv">$65 BCV</div> 
+        <span class="text-md total-bs">(Bs. 7372727)</span>
+        <div  class="font-bold uppercase">Pago en divisas <span class="total-divisas"></span></div>
+        <div class="flex gap-2 mt-5 w-full">
+            <button class="w-full rounded-full p-3 bg-white text-[#404040] text-xl uppercase font-bold cursor-pointer transition-all hover:scale-95">
+                realizar pedido
+            </button>
+            <button class="clear-cart w-15 rounded-full p-3 bg-white text-[#404040] text-xl uppercase font-bold cursor-pointer transition-all hover:scale-95 grid place-items-center">
+                <BiSolidTrashAlt />
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const cartKey = 'cart';
+    let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+    const icon = document.querySelector('.icon-cart');
+    const total = cart.reduce((sum, book) => sum + book.quantity, 0);
+    const cartList = document.querySelector('.cart-list');
+    const cartListClose = document.querySelector('.cart-list .cart-list--close');
+    const cartitems = document.querySelector('.cart-items');
+    const totalBcv = document.querySelector('.total-bcv')
+    const totalBs = document.querySelector('.total-bs')
+    const totalDivisas = document.querySelector('.total-divisas')
+    const clearCart = document.querySelector('.clear-cart')
+    
+    if (cart.length > 0) {
+        icon.querySelector('.number').textContent = total;
+        icon.classList.remove('scale-0');
+        handleCartList();
+        console.log('cart-precar')
+    }
+
+    icon.onclick = (e) => {
+        e.preventDefault();
+        cartList.classList.remove('scale-0');
+        console.log('CartIcon')
+    }
+    cartListClose.onclick = (e) => {
+        e.preventDefault();
+        cartList.classList.add('scale-0');
+    }
+
+    function handleQuantity(action, name) {
+        let cart = JSON.parse(localStorage.getItem(cartKey));
+        const bookIndex = cart.findIndex(book => book.NombreLibro === name);
+        console.log({
+            action,
+            name,
+            bookIndex,
+            cart
+        })
+        
+        
+        if (action === 'sum' || action === 1) {
+            console.log({
+                action: 'sumar',
+                quantity: cart[bookIndex].quantity
+            })
+            cart[bookIndex].quantity += 1;
+            cart[bookIndex].totalBCV = (cart[bookIndex].quantity * Number(cart[bookIndex].BCV));
+            cart[bookIndex].totalDivisas = (cart[bookIndex].quantity * Number(cart[bookIndex].Precio));
+        } else {
+            console.log({
+                action: 'resta',
+                quantity: cart[bookIndex].quantity
+            })
+
+            cart[bookIndex].quantity -= 1;
+            cart[bookIndex].totalBCV = (cart[bookIndex].quantity * Number(cart[bookIndex].BCV));
+            cart[bookIndex].totalDivisas = (cart[bookIndex].quantity * Number(cart[bookIndex].Precio));
+        }
+        if (cart[bookIndex].quantity <= 0) {
+            cart.splice(bookIndex, 1); // Remove the book from the cart if quantity is 0 or less
+        }
+        console.log(cart)
+
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+
+        handleCartList();
+
+    }
+
+    function handleCartList() {
+        let cart = JSON.parse(localStorage.getItem(cartKey));
+        cartitems.innerHTML = '';
+        console.log({
+            cart,
+            type: 'test'
+        })
+        icon.querySelector('.number').textContent = cart.reduce((sum, book) => sum + book.quantity, 0);
+        if (cart.length > 0) {
+            cart.map((book, index) => {
+                const bookImage = book.Imagen.split('/')
+                const image = bookImage[bookImage.length - 1]
+                cartitems.innerHTML += `
+                <div class="shadow-2xl">
+                    <div class="p-3 flex items-center gap-3">
+                        <img src="./images/${ image }" class="shadow-2xl" width="150" alt="BookName" />
+                        <div class="flex flex-col w-full"> 
+                            <div class="flex flex-col text-[#404040] font-bold">
+                                <h2 class="text-xl text-gray-600 mb-5 ">${ book.NombreLibro }</h2>
+                                <span class="text-md uppercase"><b>${ book.BCV }</b> bcv</span>
+                                <span class="text-sm uppercase"><b>$${ book.Precio }</b> divisas</span>
+                            </div>
+                            <div class="flex justify-around items-center mt-8 book-item" data-name="${ book.NombreLibro }">
+                                <button class="remove-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-10 h-7 md:h-10 font-semibold text-white">-</button>
+                                <span class="text-3xl md:text-6xl font-bold text-[#404040] book-quantity">${ book.quantity }</span>
+                                <button class="add-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-10 h-7 md:h-10 font-semibold text-white">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                reloadTotals(cart)
+                const triggersAdd = document.querySelectorAll('.add-book')
+                const triggersRm = document.querySelectorAll('.remove-book')
+                triggersAdd.forEach(x => {
+                    x.onclick = (e) => {
+                        e.preventDefault()
+                        handleQuantity('sum', x.parentElement.attributes['data-name'].textContent)
+                    }
+                })
+                triggersRm.forEach(x => {
+                    x.onclick = (e) => {
+                        e.preventDefault()
+                        handleQuantity('res', x.parentElement.attributes['data-name'].textContent)
+                    } 
+                })
+            })
+        } else {
+            cartitems.innerHTML = 'No se han añadido libros.';
+            cartList.classList.add('scale-0');
+            icon.classList.add('scale-0');
+        }
+    }
+    function reloadTotals(data) {
+        totalBcv.textContent = data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
+        totalDivisas.textContent = data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)
+    }
+    clearCart.onclick = (e) => {
+        e.preventDefault();
+        if (confirm('¿Esta seguro de limpiar el carrito?')) {
+            localStorage.removeItem(cartKey)
+            cartList.classList.add('scale-0');
+            icon.classList.add('scale-0');
+        }
+    }
+
+</script>
+

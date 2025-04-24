@@ -1,4 +1,5 @@
 ---
+import Cart from "../components/Cart.astro"
 import Sidebar from "../components/Sidebar.astro"
 const { title, image } = Astro.props
 ---
@@ -42,11 +43,11 @@ const { title, image } = Astro.props
 			<a href="https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Vengo de la página web. Me gustaría obtener más información 📚" target="_blank" class="fixed bottom-20 md:bottom-10 right-5 lg:right-10 z-20 bg-white rounded-full">
 				<img src="https://cdn-icons-png.freepik.com/256/2496/2496112.png?semt=ais_hybrid" class="rounded-full w-[50px] lg:w-[70px]" alt="Logo WhatsApp">
 			</a>
+			<Cart />
 		</main>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
-		
 	</body>
 </html>
 
