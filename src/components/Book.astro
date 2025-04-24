@@ -1305,13 +1305,16 @@ function data(items, text) {
                     }
                 }
                 let delivery = JSON.parse(localStorage.getItem('delivery')) || 0;
-                totalBcv.textContent = `${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery)} BCV`;
+                const totalBCV = document.querySelector('.total-bcv')
+                const totalBS = document.querySelector('.total-bs')
+                const totalDivisas = document.querySelector('.total-divisas')
+                totalBCV.textContent = `${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery)} BCV`;
                 totalDivisas.textContent = `$${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)) + parseInt(delivery)}`;
                 (async () => {
                     try {
                         const response = await DOLLARS();
                         const bcv = response.bcv.data
-                        totalBs.textContent = `Bs. ${(bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)}`
+                        totalBS.textContent = `Bs. ${(bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)}`
                     } catch (error) {
                         console.error('Error DOLLARS data:', error);
                     }

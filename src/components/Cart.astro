@@ -94,6 +94,7 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
 </div>
 
 <script type="text/javascript">
+
     const cartKey = 'cart';
     let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
     const icon = document.querySelector('.icon-cart');
@@ -358,8 +359,8 @@ checkout.onclick = (e) => {
 
     const booksStr = books.map(book => { return `• ${book.quantity} x ${book.NombreLibro} *$${paymentMethod.value != 'Pago Móvil' ? book.totalDivisas : book.totalBCV}*\n`}).join('')
     const totalBcvBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
-    const totalDivisasBooks = books.reduce((sum, book) => Number(sum) + Number(book.divisas), 0).toFixed(2)
-
+    const totalDivisasBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)
+     console.log(totalDivisasBooks)
     const clientName = prompt('Ingrese su nombre y apellido:');
     if (!clientName) {
         return alert('El nombre y apellido son obligatorios.');
