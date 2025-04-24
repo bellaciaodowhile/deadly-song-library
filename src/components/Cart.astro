@@ -360,6 +360,7 @@ checkout.onclick = (e) => {
     const booksStr = books.map(book => { return `• ${book.quantity} x ${book.NombreLibro} *$${paymentMethod.value != 'Pago Móvil' ? book.totalDivisas : book.totalBCV}*\n`}).join('')
     const totalBcvBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
     const totalDivisasBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)
+     console.log(totalBcvBooks)
      console.log(totalDivisasBooks)
     const clientName = prompt('Ingrese su nombre y apellido:');
     if (!clientName) {
@@ -373,7 +374,7 @@ checkout.onclick = (e) => {
         return alert('Delivery (Caracas) $5 requiere la zona para el envío.');
     }
 
-    const message = `https://api.whatsapp.com/send?phone=+584241305636&text=*NUEVO PEDIDO 📚*%0A%0A${encodeURIComponent(booksStr)}%0A%0A*Productos:* ${paymentMethod !== 'Pago Móvil' ? `$${totalDivisasBooks}` : `${totalBcvBooks}`} %0A%0A*Método de entrega:* ${deliveryMethod.value}%0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} %0A%0A*Forma de pago:* ${paymentMethod.value}%0A%0A*Nombre del cliente:* ${clientName}${localStorage.getItem('delivery') == '5' ? `%0A%0A*Zona delivery:* ${deliveryZone}`:''}`;
+    const message = `https://api.whatsapp.com/send?phone=+584241305636&text=*NUEVO PEDIDO 📚*%0A%0A${encodeURIComponent(booksStr)}%0A%0A*Productos:* ${paymentMethod.value !== 'Pago Móvil' ? `$${totalDivisasBooks}` : `$${totalBcvBooks}`} %0A%0A*Método de entrega:* ${deliveryMethod.value}%0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} %0A%0A*Forma de pago:* ${paymentMethod.value}%0A%0A*Nombre del cliente:* ${clientName}${localStorage.getItem('delivery') == '5' ? `%0A%0A*Zona delivery:* ${deliveryZone}`:''}`;
 
     sendCheckout.href = message
 
