@@ -8,25 +8,6 @@ import axios from 'axios'
 
 import { supabase } from '../lib/supabase.js';
 import { BiExport } from "react-icons/bi";
-
-// let books = [];
-// let error = null;
-// try {
-//     const { data, error: fetchError } = await supabase
-//         .from('data')
-//         .select();
-//     if (fetchError) {
-//         throw fetchError;
-//     }
-//     if (Array.isArray(data)) {
-//         books = data; // Use the data directly if it's an array
-//     } else {
-//         books = Array.isArray(data) ? data : [data]; // Convert to array if not iterable
-//     }
-// } catch (err) {
-//     error = err.message;
-// }
-// books = JSON.parse(books[0]?.catalogue)
 ---
 
 <main>
@@ -1294,9 +1275,9 @@ function data(items, text) {
                                     <span class="text-sm uppercase"><b>$${ book.Precio }</b> divisas</span>
                                 </div>
                                  <div class="flex justify-around items-center mt-8 book-item" data-name="${ book.NombreLibro }">
-                                    <button class="remove-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-10 h-7 md:h-10 font-semibold text-white">-</button>
+                                    <button class="remove-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">-</button>
                                     <span class="text-3xl md:text-6xl font-bold text-[#404040] book-quantity">${ book.quantity }</span>
-                                    <button class="add-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-10 h-7 md:h-10 font-semibold text-white">+</button>
+                                    <button class="add-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">+</button>
                                 </div>
                             </div>
                         </div>
@@ -1317,8 +1298,24 @@ function data(items, text) {
                         } 
                     })
                 })
-                totalBcv.textContent = data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
-                totalDivisas.textContent = data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)
+                async function DOLLARS() {
+                    return {
+                        bcv: await axios.get('https://ve.dolarapi.com/v1/dolares/oficial'),
+                        paralelo: await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
+                    }
+                }
+                let delivery = JSON.parse(localStorage.getItem('delivery')) || 0;
+                totalBcv.textContent = `${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery)} BCV`;
+                totalDivisas.textContent = `$${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)) + parseInt(delivery)}`;
+                (async () => {
+                    try {
+                        const response = await DOLLARS();
+                        const bcv = response.bcv.data
+                        totalBs.textContent = `Bs. ${(bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)}`
+                    } catch (error) {
+                        console.error('Error DOLLARS data:', error);
+                    }
+                })();
             }
 
         }

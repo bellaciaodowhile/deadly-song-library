@@ -8,41 +8,81 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
 </button>
 
 <div class="cart-list fixed w-full md:w-[450px] bg-white shadow-2xl right-0 top-0 z-40 h-full overflow-auto scale-0 transition-all">
-    <div class="content p-10">
+    <div class="p-10">
         <BiChevronLeft className="text-3xl cursor-pointer cart-list--close" />
         <h1 class="text-5xl md:text-5xl font-bold text-gray-950 text-center">Carrito</h1>
-        <div class="cards mt-16 flex flex-col gap-16 pb-52 cart-items">
 
+        <div class="accordions is-first-expanded flex flex-col gap-3 mt-5">
+            <article class="accordion">
+              <header class="accordion-head p-5 bg-[#00000026] text-[#404040] rounded-xl flex justify-between">
+                <span class="font-bold">Métodos de pago</span>
+                <span class="icon has-text-primary">
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+              </header>
+              <div class="accordion-body">
+                <div class="content p-5">
+                    <div class="custom-choose mb-3">
+                        <input type="radio" id="payment-zelle" value="Zelle" name="payment-method">
+                        <label for="payment-zelle">Zelle</label>
 
-            <div class="shadow-2xl">
-                <div class="p-3 flex items-center gap-3">
-                    <img src="http://localhost:4321/images/AL%20FINAL%20MUEREN%20LOS%20DOS.jpg" class="shadow-2xl" width="150" alt="BookName" />
-                    <div class="flex flex-col w-full">
-                        <div class="flex flex-col text-[#404040]">
-                            <h2 class="text-xl font-bold text-gray-600">Al Final Todos Muerden</h2>
-                            <span class="text-md uppercase"><b>31.82</b> bcv</span>
-                            <span class="text-sm uppercase"><b>$25</b> divisas</span>
-                        </div>
+                        <input type="radio" id="payment-cash" value="Efectivo" name="payment-method">
+                        <label for="payment-cash">Efectivo</label>
 
-                        <div class="flex justify-around items-center mt-5">
-                            <button class="cursor-pointer transition-all active:scale-90 grid place-items-center text-4xl font-semibold text-[#404040]">-</button>
-                            <span class="text-6xl font-bold text-[#404040]">3</span>
-                            <button class="cursor-pointer transition-all active:scale-90 grid place-items-center text-4xl font-semibold text-[#404040]">+</button>
-                        </div>
+                        <input type="radio" id="payment-mobile" value="Pago Móvil" name="payment-method">
+                        <label for="payment-mobile">Pago Móvil</label>
 
+                        <input type="radio" id="payment-paypal" value="PayPal" name="payment-method">
+                        <label for="payment-paypal">PayPal + Comisión</label>
+
+                        <input type="radio" id="payment-binance" value="Binance Pay" name="payment-method">
+                        <label for="payment-binance">Binance Pay</label>
+
+                        <input type="radio" id="payment-zinli" value="Zinli" name="payment-method">
+                        <label for="payment-zinli">Zinli</label>
+
+                        <input type="radio" id="payment-moneyways" value="MoneyWays" name="payment-method">
+                        <label for="payment-moneyways">MoneyWays</label>
                     </div>
                 </div>
-            </div>
-            
-        </div>
+              </div>
+            </article>
+          
+            <article class="accordion">
+              <header class="accordion-head p-5 bg-[#00000026] text-[#404040] rounded-xl flex justify-between">
+                <span class="font-bold">Métodos de entrega</span>
+                <span class="icon has-text-primary">
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+              </header>
+              <div class="accordion-body">
+                <div class="content p-5">
+                    <div class="custom-choose mb-3">
+                        <input type="radio" id="delivery-nacional" value="Envío nacional (a todo el país) (pagas al recibir)" name="delivery-method">
+                        <label for="delivery-nacional" class="delivery">Envío nacional (a todo el país) (pagas al recibir)</label>
+
+                        <input type="radio" id="pick-up" value="Pick-up Santa Mónica o prados del este $0" name="delivery-method">
+                        <label for="pick-up" class="delivery">Pick-up Santa Mónica o prados del este $0</label>
+
+                        <input type="radio" id="delivery-caracas" value="Delivery (Caracas) $5" name="delivery-method">
+                        <label for="delivery-caracas" class="delivery delivery-caracas">Delivery Caracas 5$</label>
+                    </div>
+                </div>
+              </div>
+            </article>
+          
+            <div class="cards mt-5 flex flex-col gap-16 pb-64 cart-items"></div>
+          </div>
+
+
     </div>
     <div class="fixed w-full md:w-[450px] px-10 py-5 right-0 bottom-0 bg-[#404040] text-white flex flex-col items-end">
         <div class="text-2xl font-bold">Total:</div>
         <div class="font-bold total-bcv">$65 BCV</div> 
-        <span class="text-md total-bs">(Bs. 7372727)</span>
+        <span class="text-md total-bs font-bold">(Bs. 7372727)</span>
         <div  class="font-bold uppercase">Pago en divisas <span class="total-divisas"></span></div>
         <div class="flex gap-2 mt-5 w-full">
-            <button class="w-full rounded-full p-3 bg-white text-[#404040] text-xl uppercase font-bold cursor-pointer transition-all hover:scale-95">
+            <button class="w-full rounded-full p-3 bg-white text-[#404040] text-md uppercase font-bold cursor-pointer transition-all hover:scale-95 checkout">
                 realizar pedido
             </button>
             <button class="clear-cart w-15 rounded-full p-3 bg-white text-[#404040] text-xl uppercase font-bold cursor-pointer transition-all hover:scale-95 grid place-items-center">
@@ -50,6 +90,7 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
             </button>
         </div>
     </div>
+    <a href="#" target="_blank" class="send-checkout"></a>
 </div>
 
 <script type="text/javascript">
@@ -145,14 +186,14 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
                                 <span class="text-sm uppercase"><b>$${ book.Precio }</b> divisas</span>
                             </div>
                             <div class="flex justify-around items-center mt-8 book-item" data-name="${ book.NombreLibro }">
-                                <button class="remove-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-10 h-7 md:h-10 font-semibold text-white">-</button>
+                                <button class="remove-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">-</button>
                                 <span class="text-3xl md:text-6xl font-bold text-[#404040] book-quantity">${ book.quantity }</span>
-                                <button class="add-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-10 h-7 md:h-10 font-semibold text-white">+</button>
+                                <button class="add-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">+</button>
                             </div>
                         </div>
                     </div>
                 </div>`;
-                reloadTotals(cart)
+                reloadTotals()
                 const triggersAdd = document.querySelectorAll('.add-book')
                 const triggersRm = document.querySelectorAll('.remove-book')
                 triggersAdd.forEach(x => {
@@ -174,9 +215,28 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
             icon.classList.add('scale-0');
         }
     }
-    function reloadTotals(data) {
-        totalBcv.textContent = data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
-        totalDivisas.textContent = data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)
+    async function DOLLARS() {
+        return {
+            bcv: await axios.get('https://ve.dolarapi.com/v1/dolares/oficial'),
+            paralelo: await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
+        }
+    }
+    function reloadTotals() {
+        let data = JSON.parse(localStorage.getItem(cartKey));
+        let delivery = JSON.parse(localStorage.getItem('delivery')) || 0;
+        console.log(delivery)
+        totalBcv.textContent = `${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery) } BCV`;
+        console.log(parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))
+        totalDivisas.textContent = `$${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)) + parseInt(delivery)}`;
+        (async () => {
+            try {
+                const response = await DOLLARS();
+                const bcv = response.bcv.data
+                totalBs.textContent = `Bs. ${(bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)}`
+            } catch (error) {
+                console.error('Error DOLLARS data:', error);
+            }
+        })();
     }
     clearCart.onclick = (e) => {
         e.preventDefault();
@@ -187,5 +247,210 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
         }
     }
 
+   const Accordion = {
+	settings: {
+		// Expand the first item by default
+		first_expanded: false,
+		// Allow items to be toggled independently
+		toggle: true
+	},
+
+	openAccordion: function(toggle, content) {
+		if (content.children.length) {
+			toggle.classList.add("is-open");
+			let final_height = Math.floor(content.children[0].offsetHeight);
+			content.style.height = final_height + "px";
+		}
+	},
+
+	closeAccordion: function(toggle, content) {
+		toggle.classList.remove("is-open");
+		content.style.height = 0;
+	},
+
+	init: function(el) {
+		const _this = this;
+
+		// Override default settings with classes
+		let is_first_expanded = _this.settings.first_expanded;
+		if (el.classList.contains("is-first-expanded")) is_first_expanded = true;
+		let is_toggle = _this.settings.toggle;
+		if (el.classList.contains("is-toggle")) is_toggle = true;
+
+		// Loop through the accordion's sections and set up the click behavior
+		const sections = el.getElementsByClassName("accordion");
+		const all_toggles = el.getElementsByClassName("accordion-head");
+		const all_contents = el.getElementsByClassName("accordion-body");
+		for (let i = 0; i < sections.length; i++) {
+			const section = sections[i];
+			const toggle = all_toggles[i];
+			const content = all_contents[i];
+
+			// Click behavior
+			toggle.addEventListener("click", function(e) {
+				if (!is_toggle) {
+					// Hide all content areas first
+					for (let a = 0; a < all_contents.length; a++) {
+						_this.closeAccordion(all_toggles[a], all_contents[a]);
+					}
+
+					// Expand the clicked item
+					_this.openAccordion(toggle, content);
+				} else {
+					// Toggle the clicked item
+					if (toggle.classList.contains("is-open")) {
+						_this.closeAccordion(toggle, content);
+					} else {
+						_this.openAccordion(toggle, content);
+					}
+				}
+			});
+
+			// // Expand the first item
+			// if (i === 2) {
+			// 	_this.openAccordion(toggle, content);
+			// }
+		}
+	}
+};
+
+(function() {
+	// Initiate all instances on the page
+	const accordions = document.getElementsByClassName("accordions");
+	for (let i = 0; i < accordions.length; i++) {
+		Accordion.init(accordions[i]);
+	}
+})();
+
+const delivery = document.querySelectorAll('.delivery');
+delivery.forEach(item => {
+    item.onclick = (e) => {
+        if (item.classList.contains('delivery-caracas')) {
+            localStorage.setItem('delivery', 5);
+        } else {
+            localStorage.setItem('delivery', 0);
+        }
+        reloadTotals();
+    }
+});
+const dataDelivery = localStorage.getItem('delivery');
+if (dataDelivery == '5') {
+    delivery[2].previousElementSibling.checked = true;
+}
+
+const checkout = document.querySelector('.checkout');
+checkout.onclick = (e) => {
+    const books = JSON.parse(localStorage.getItem(cartKey));
+    e.preventDefault();
+    const paymentMethod = document.querySelector('[name="payment-method"]:checked')
+    const deliveryMethod = document.querySelector('[name="delivery-method"]:checked')
+    const totalBCV = document.querySelector('.total-bcv')
+    const totalBS = document.querySelector('.total-bs')
+    const totalDivisas = document.querySelector('.total-divisas')
+    const sendCheckout = document.querySelector('.send-checkout')
+
+    if (!paymentMethod) {
+        return alert('No ha elegido un método de pago');
+    }
+    if (!deliveryMethod) {
+        return alert('No ha elegido un método de entrega');
+    }
+
+    const booksStr = books.map(book => { return `• ${book.quantity} x ${book.NombreLibro} *$${paymentMethod.value != 'Pago Móvil' ? book.totalDivisas : book.totalBCV}*\n`}).join('')
+    const totalBcvBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
+    const totalDivisasBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
+    // 584241305636
+    const clientName = prompt('Ingrese su nombre y apellido:');
+    if (!clientName) {
+        return alert('El nombre y apellido son obligatorios.');
+    };
+    let deliveryZone;
+    if (localStorage.getItem('delivery') == '5') {
+        deliveryZone = prompt('Ingrese la zona donde recibirá el producto:')
+    }
+    if (!deliveryZone && localStorage.getItem('delivery') == '5') {
+        return alert('Delivery (Caracas) $5 requiere la zona para el envío.');
+    }
+
+    const message = `https://api.whatsapp.com/send?phone=+584122974011&text=*NUEVO PEDIDO 📚*%0A%0A${encodeURIComponent(booksStr)}%0A%0A*Productos:* ${paymentMethod !== 'Pago Móvil' ? `$${totalDivisasBooks}` : `${totalBcvBooks}`} %0A%0A*Método de entrega:* ${deliveryMethod.value}%0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} %0A%0A*Forma de pago:* ${paymentMethod.value}%0A%0A*Nombre del cliente:* ${clientName}${localStorage.getItem('delivery') == '5' ? `%0A%0A*Zona delivery:* ${deliveryZone}`:''}`;
+
+    sendCheckout.href = message
+
+    console.log(booksStr)
+
+    console.log({
+        books,
+        paymentMethod: paymentMethod.value,
+        deliveryMethod: deliveryMethod.value,
+        totalBCV: totalBCV.textContent,
+        totalBS: totalBS.textContent,
+        divisas: totalDivisas.textContent
+    })
+    sendCheckout.click();
+}
 </script>
+
+<style scoped>
+.accordion:first-child .accordion-head {
+  border-top: 0;
+}
+.accordion-head {
+  cursor: pointer;
+  transition: color 200ms ease-in-out;
+}
+.accordion-head .icon {
+  transition: transform 200ms ease-in-out;
+}
+.accordion-head.is-open {
+  color: white;
+  background: #0000009d;
+}
+.accordion-head.is-open .icon {
+  transform: rotate(90deg);
+}
+.accordion-body {
+  overflow: hidden;
+  height: 0;
+  transition: height 200ms ease-in-out;
+}
+
+.custom-choose
+{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.custom-choose input[type='radio'],.custom-choose input[type='checkbox']
+{
+    display: none;
+}
+.custom-choose input[type='radio'] + label,.custom-choose input[type='radio']:not(checked) + label
+,.custom-choose input[type='checkbox'] + label,.custom-choose input[type='checkbox']:not(checked) + label
+{
+    padding: 13px 45.5px;
+    border: solid 2px #00000026;
+    border-radius: 5px;
+    text-align: center;
+    transition: .4s;
+    color: #404040;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.custom-choose input[type='radio']:checked + label,
+.custom-choose input[type='checkbox']:checked + label
+{
+    position: relative;
+    border: solid 2px #141518;
+    color: #141518;
+    transition: .4s;
+}
+.custom-choose input[type='radio']:checked + label::before,
+.custom-choose input[type='checkbox']:checked + label::before
+{
+    content:'◉';
+    position: absolute;
+    left: 16px;
+}
+</style>
 
