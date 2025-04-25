@@ -13,6 +13,7 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
         <h1 class="text-5xl md:text-5xl font-bold text-gray-950 text-center">Carrito</h1>
 
         <div class="accordions is-first-expanded flex flex-col gap-3 mt-5">
+           
             <article class="accordion">
               <header class="accordion-head p-5 bg-[#00000026] text-[#404040] rounded-xl flex justify-between">
                 <span class="font-bold">Métodos de pago</span>
@@ -20,26 +21,27 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
                     <i class="fas fa-chevron-right"></i>
                 </span>
               </header>
+     
               <div class="accordion-body">
                 <div class="content p-5">
                     <div class="custom-choose mb-3">
-                        <input type="radio" id="payment-zelle" value="Zelle" name="payment-method">
-                        <label for="payment-zelle">Zelle</label>
+                        <input type="radio" id="payment-mobile" value="Pago Móvil" name="payment-method">
+                        <label for="payment-mobile">Pago Móvil</label>
 
                         <input type="radio" id="payment-cash" value="Efectivo" name="payment-method">
                         <label for="payment-cash">Efectivo</label>
 
-                        <input type="radio" id="payment-mobile" value="Pago Móvil" name="payment-method">
-                        <label for="payment-mobile">Pago Móvil</label>
-
-                        <input type="radio" id="payment-paypal" value="PayPal" name="payment-method">
-                        <label for="payment-paypal">PayPal + Comisión</label>
-
-                        <input type="radio" id="payment-binance" value="Binance Pay" name="payment-method">
-                        <label for="payment-binance">Binance Pay</label>
+                        <input type="radio" id="payment-zelle" value="Zelle" name="payment-method">
+                        <label for="payment-zelle">Zelle</label>
 
                         <input type="radio" id="payment-zinli" value="Zinli" name="payment-method">
                         <label for="payment-zinli">Zinli</label>
+
+                        <input type="radio" id="payment-binance" value="Binance Pay" name="payment-method">
+                        <label for="payment-binance">Binance Pay</label>
+                        
+                        <input type="radio" id="payment-paypal" value="PayPal" name="payment-method">
+                        <label for="payment-paypal">PayPal + Comisión</label>
 
                         <input type="radio" id="payment-moneyways" value="MoneyWays" name="payment-method">
                         <label for="payment-moneyways">MoneyWays</label>
@@ -47,7 +49,6 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
                 </div>
               </div>
             </article>
-          
             <article class="accordion">
               <header class="accordion-head p-5 bg-[#00000026] text-[#404040] rounded-xl flex justify-between">
                 <span class="font-bold">Métodos de entrega</span>
@@ -57,24 +58,52 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
               </header>
               <div class="accordion-body">
                 <div class="content p-5">
-                    <div class="custom-choose mb-3">
+                    <div class="custom-choose mb-3 uppercase">
                         <input type="radio" id="delivery-nacional" value="Envío nacional (a todo el país) (pagas al recibir)" name="delivery-method">
-                        <label for="delivery-nacional" class="delivery">Envío nacional (a todo el país) (pagas al recibir)</label>
+                        <label for="delivery-nacional" class="delivery flex flex-col items-center"><span class="font-bold text-2xl">Envío nacional</span> <span class="text-sm">todo el país (cobro destino)</span></label>
 
                         <input type="radio" id="pick-up" value="Pick-up Santa Mónica o prados del este $0" name="delivery-method">
-                        <label for="pick-up" class="delivery">Pick-up Santa Mónica o prados del este $0</label>
+                        <label for="pick-up" class="delivery flex flex-col items-center">   
+                            <div class="text-2xl"><span class="font-bold">pick-up</span> <span class="font-light">caracas</span></div>
+                            <span class="text-sm">santa mónica o prado del este</sp>
+                        </label>
 
                         <input type="radio" id="delivery-caracas" value="Delivery (Caracas) $5" name="delivery-method">
-                        <label for="delivery-caracas" class="delivery delivery-caracas">Delivery Caracas 5$</label>
+                        <label for="delivery-caracas" class="delivery delivery-caracas flex justify-center items-center gap-[4px]">
+                            <div class="flex flex-col ml-[9px]">
+                                <span class="text-[26px] font-bold">delivery</span>
+                                <span class="font-semibold -mt-2 text-[14px]">a toda caracas</span>
+                            </div>
+                            <span class="text-[35px] flex font-bold mt-[3px]"><span class="mr-[-2px]">$</span><span>5</span></span>
+                        </label>
                     </div>
                 </div>
               </div>
             </article>
+            <article class="accordion">
+                <header class="accordion-head p-5 bg-[#00000026] text-[#404040] rounded-xl flex justify-between">
+                  <span class="font-bold">Datos del cliente</span>
+                  <span class="icon has-text-primary">
+                      <i class="fas fa-chevron-right"></i>
+                  </span>
+                </header>
+       
+                <div class="accordion-body">
+                  <div class="content p-5">
+                    <div class="input-nameLastname">
+                        <label for="first_name" class="block mb-2 text-sm  text-[#404040] font-bold">Nombre y Apellido</label>
+                        <input type="text" id="first_name" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040] placeholder:font-semibold" placeholder="John Kingsman" required />
+                    </div>
+                    <div class="mt-3 input-zone hidden">
+                        <label for="zone" class="block mb-2 text-sm font-bold text-[#404040]">Zona Delivery</label>
+                        <input type="text" id="zone" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040] placeholder:font-semibold" placeholder="Ej: Bello Monte" required />
+                    </div>
+                  </div>
+                </div>
+            </article>
           
             <div class="cards mt-5 flex flex-col gap-16 pb-64 cart-items"></div>
           </div>
-
-
     </div>
     <div class="fixed w-full md:w-[450px] px-10 py-5 right-0 bottom-0 bg-[#404040] text-white flex flex-col items-end">
         <div class="text-2xl font-bold">Total:</div>
@@ -182,11 +211,11 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
                         <img src="./images/${ image }" class="shadow-2xl" width="150" alt="BookName" />
                         <div class="flex flex-col w-full"> 
                             <div class="flex flex-col text-[#404040] font-bold">
-                                <h2 class="text-xl text-gray-600 mb-5 ">${ book.NombreLibro }</h2>
-                                <span class="text-md uppercase"><b>${ book.BCV }</b> bcv</span>
-                                <span class="text-sm uppercase"><b>$${ book.Precio }</b> divisas</span>
+                                <h2 class="text-xl text-[#404040] mb-6 ml-[6px] leading-[1]">${ book.NombreLibro }</h2>
+                                <span class="text-xl font-light inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.BCV } bcv</span>
+                                <span class="text-xl inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.Precio } divisas</span>
                             </div>
-                            <div class="flex justify-around items-center mt-8 book-item" data-name="${ book.NombreLibro }">
+                            <div class="flex justify-around items-center mt-4 book-item" data-name="${ book.NombreLibro }">
                                 <button class="remove-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">-</button>
                                 <span class="text-3xl md:text-6xl font-bold text-[#404040] book-quantity">${ book.quantity }</span>
                                 <button class="add-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">+</button>
@@ -222,18 +251,29 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
             paralelo: await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
         }
     }
+    function numberFormat(number) {
+        let str = number.toString();
+        let res = "";
+        for (let i = 0; i < str.length; i++) {
+            res += str[i];
+            if ((str.length - i - 1) % 3 === 0 && i < str.length - 1) {
+                res += ".";
+            }
+        }
+        return res;
+    }
     function reloadTotals() {
         let data = JSON.parse(localStorage.getItem(cartKey));
         let delivery = JSON.parse(localStorage.getItem('delivery')) || 0;
         console.log(delivery)
-        totalBcv.textContent = `${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery) } BCV`;
+        totalBcv.textContent = `${(parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery)).toFixed(2) } BCV`;
         console.log(parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))
         totalDivisas.textContent = `$${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)) + parseInt(delivery)}`;
         (async () => {
             try {
                 const response = await DOLLARS();
                 const bcv = response.bcv.data
-                totalBs.textContent = `Bs. ${(bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)}`
+                totalBs.textContent = `Bs. ${numberFormat((bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)).replace('..','.')}`
             } catch (error) {
                 console.error('Error DOLLARS data:', error);
             }
@@ -322,14 +362,17 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
 		Accordion.init(accordions[i]);
 	}
 })();
-
+const inputNameLastname = document.querySelector('.input-nameLastname');
+const inputZone = document.querySelector('.input-zone');
 const delivery = document.querySelectorAll('.delivery');
 delivery.forEach(item => {
     item.onclick = (e) => {
         if (item.classList.contains('delivery-caracas')) {
             localStorage.setItem('delivery', 5);
+            inputZone.classList.remove('hidden')
         } else {
             localStorage.setItem('delivery', 0);
+            inputZone.classList.add('hidden')
         }
         reloadTotals();
     }
@@ -337,6 +380,7 @@ delivery.forEach(item => {
 const dataDelivery = localStorage.getItem('delivery');
 if (dataDelivery == '5') {
     delivery[2].previousElementSibling.checked = true;
+    inputZone.classList.remove('hidden')
 }
 
 const checkout = document.querySelector('.checkout');
@@ -356,25 +400,18 @@ checkout.onclick = (e) => {
     if (!deliveryMethod) {
         return alert('No ha elegido un método de entrega');
     }
+    if (inputNameLastname.querySelector('input').value == '') {
+        return alert('Se requiere llenar los datos del cliente')
+    }
+    if (inputZone.querySelector('input').value == '' && localStorage.getItem('delivery') == '5') {
+        return alert('Se requiere llenar los datos del cliente')
+    }
 
     const booksStr = books.map(book => { return `• ${book.quantity} x ${book.NombreLibro} *$${paymentMethod.value != 'Pago Móvil' ? book.totalDivisas : book.totalBCV}*\n`}).join('')
     const totalBcvBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
     const totalDivisasBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)
-     console.log(totalBcvBooks)
-     console.log(totalDivisasBooks)
-    const clientName = prompt('Ingrese su nombre y apellido:');
-    if (!clientName) {
-        return alert('El nombre y apellido son obligatorios.');
-    };
-    let deliveryZone;
-    if (localStorage.getItem('delivery') == '5') {
-        deliveryZone = prompt('Ingrese la zona donde recibirá el producto:')
-    }
-    if (!deliveryZone && localStorage.getItem('delivery') == '5') {
-        return alert('Delivery (Caracas) $5 requiere la zona para el envío.');
-    }
 
-    const message = `https://api.whatsapp.com/send?phone=+584241305636&text=*NUEVO PEDIDO 📚*%0A%0A${encodeURIComponent(booksStr)}%0A%0A*Productos:* ${paymentMethod.value !== 'Pago Móvil' ? `$${totalDivisasBooks}` : `$${totalBcvBooks}`} %0A%0A*Método de entrega:* ${deliveryMethod.value}%0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} %0A%0A*Forma de pago:* ${paymentMethod.value}%0A%0A*Nombre del cliente:* ${clientName}${localStorage.getItem('delivery') == '5' ? `%0A%0A*Zona delivery:* ${deliveryZone}`:''}`;
+    const message = `https://api.whatsapp.com/send?phone=+584241305636&text=*NUEVO PEDIDO 📚*%0A%0A${encodeURIComponent(booksStr)}%0A%0A*Productos:* ${paymentMethod.value !== 'Pago Móvil' ? `$${totalDivisasBooks}` : `$${totalBcvBooks}`} %0A%0A*Método de entrega:* ${deliveryMethod.value}%0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} %0A%0A*Forma de pago:* ${paymentMethod.value}%0A%0A*Nombre del cliente:* ${inputNameLastname.querySelector('input').value}${localStorage.getItem('delivery') == '5' ? `%0A%0A*Zona delivery:* ${inputZone.querySelector('input').value}`:''}`;
 
     sendCheckout.href = message
 
@@ -429,7 +466,7 @@ checkout.onclick = (e) => {
 .custom-choose input[type='radio'] + label,.custom-choose input[type='radio']:not(checked) + label
 ,.custom-choose input[type='checkbox'] + label,.custom-choose input[type='checkbox']:not(checked) + label
 {
-    padding: 13px 45.5px;
+    padding: 13px 35.5px;
     border: solid 2px #00000026;
     border-radius: 5px;
     text-align: center;
@@ -448,11 +485,12 @@ checkout.onclick = (e) => {
     transition: .4s;
 }
 .custom-choose input[type='radio']:checked + label::before,
-.custom-choose input[type='checkbox']:checked + label::before
-{
-    content:'◉';
+.custom-choose input[type='checkbox']:checked + label::before {
+    content: '◉';
     position: absolute;
-    left: 16px;
+    left: 26px;
+    top: 50%; 
+    transform: translate(-50%, -50%);
 }
 </style>
 

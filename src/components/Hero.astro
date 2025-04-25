@@ -22,11 +22,144 @@ import { BiRightArrowAlt } from "react-icons/bi";
             <!-- <button class="border-2 text-white font-semibold border-[#91294E] py-3 px-10 cursor-pointer transition-all bg-[#91294E] hover:text-[#91294E] hover:border-white rounded-full ">
                 $<span class="cash"></span> Divisas
             </button> -->
-            <a target="_blank" href="#" class="bg-[#EFEDE3] border-2 text-[#404040] rounded-full font-semibold border-[#404040] py-3 px-10 uppercase cursor-pointer transition-all hover:bg-[#404040] hover:text-white hover:border-white buy-hero">
-                comprar
-            </a>
+            <button class="bg-[#EFEDE3] border-2 flex text-[#404040] rounded-full font-semibold border-[#404040] py-3 px-10 uppercase cursor-pointer transition-all hover:scale-90 buy-hero add-book-carousel">
+                <span>Añadir</span>
+                <img src="https://www.svgrepo.com/show/493949/cart-lines-1.svg" width="20" />
+            </button>
         </div>
     </article>
     
 </section>
 
+<script type="text/javascript">
+
+    const fixed = [
+        {
+            "NombreLibro": "La hipótesis del amor",
+            "Precio": 30,
+            "Autor": "Ali Hazelwood",
+            "Imagen": "https://github.com/bellaciaodowhile/upload-deadly-song-library/blob/main/images/LA%20HIP%C3%93TESIS%20DEL%20AMOR.jpg",
+            "Destacado": "SI",
+            "BCV": "37.10"
+        },
+        {
+            "NombreLibro": "Heartstopper 1",
+            "Precio": 30,
+            "Autor": "Alice Oseman",
+            "Imagen": "https://github.com/bellaciaodowhile/upload-deadly-song-library/blob/main/images/HEARTSTOPPER%201.webp",
+            "Destacado": "SI",
+            "BCV": "37.10"
+        }
+    ];
+    const slideCurrent = document.querySelector('.slide-current-price')
+    slideCurrent.setAttribute('data-name', JSON.stringify(fixed[window.innerWidth > 620 ? 1 : 0]))
+    const addBookCarousel = document.querySelector('.add-book-carousel')
+    addBookCarousel.onclick = (e) => {
+        e.preventDefault();
+        const data = JSON.parse(slideCurrent?.attributes['data-name'].textContent)
+        console.log(data)
+
+        const cartKey = 'cart';
+        const cartitems = document.querySelector('.cart-items');
+        
+        let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+        const existingBookIndex = cart.findIndex(book => book.NombreLibro === data.NombreLibro);
+        const iconCart = document.querySelector('.icon-cart');
+        
+        iconCart.classList.remove('scale-0')
+        
+        if (existingBookIndex !== -1) {
+            cart[existingBookIndex].quantity += 1;
+            cart[existingBookIndex].totalBCV = (cart[existingBookIndex].quantity * Number(cart[existingBookIndex].BCV));
+            cart[existingBookIndex].totalDivisas = (cart[existingBookIndex].quantity * Number(cart[existingBookIndex].Precio));
+        } else {
+            data.quantity = 1;
+            data.totalBCV = data.BCV;
+            data.totalDivisas = data.Precio;
+
+            cart.push(data);
+        }
+        
+        const totalQuantity = cart.reduce((sum, book) => sum + book.quantity, 0);
+        iconCart.querySelector('.number').textContent = totalQuantity;
+
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+        console.log('Carrito actualizado:', cart);
+        handleCartList(cart);
+
+        function handleCartList(data) {
+            cartitems.innerHTML = '';
+            if (data.length > 0) {
+                data.map((book, index) => {
+                    const bookImage = book.Imagen.split('/')
+                    const image = bookImage[bookImage.length - 1]
+                    cartitems.innerHTML += `
+                    <div class="shadow-2xl">
+                        <div class="p-3 flex items-center gap-3">
+                            <img src="./images/${ image }" class="shadow-2xl" width="150" alt="BookName" />
+                            <div class="flex flex-col w-full">
+                                <div class="flex flex-col text-[#404040] font-bold">
+                                    <h2 class="text-xl text-[#404040] mb-6 ml-[6px] leading-[1]">${ book.NombreLibro }</h2>
+                                    <span class="text-xl font-light inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.BCV } bcv</span>
+                                    <span class="text-xl inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.Precio } divisas</span>
+                                </div>
+                                 <div class="flex justify-around items-center mt-8 book-item" data-name="${ book.NombreLibro }">
+                                    <button class="remove-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">-</button>
+                                    <span class="text-3xl md:text-6xl font-bold text-[#404040] book-quantity">${ book.quantity }</span>
+                                    <button class="add-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                    
+                    const triggersAdd = document.querySelectorAll('.add-book')
+                    const triggersRm = document.querySelectorAll('.remove-book')
+                    triggersAdd.forEach(x => {
+                        x.onclick = (e) => {
+                            e.preventDefault()
+                            handleQuantity(1, x.parentElement.attributes['data-name'].textContent)
+                        }
+                    })
+                    triggersRm.forEach(x => {
+                        x.onclick = (e) => {
+                            e.preventDefault()
+                            handleQuantity(-1, x.parentElement.attributes['data-name'].textContent)
+                        } 
+                    })
+                })
+                async function DOLLARS() {
+                    return {
+                        bcv: await axios.get('https://ve.dolarapi.com/v1/dolares/oficial'),
+                        paralelo: await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
+                    }
+                }
+                function numberFormat(number) {
+                    let str = number.toString();
+                    let res = "";
+                    for (let i = 0; i < str.length; i++) {
+                        res += str[i];
+                        if ((str.length - i - 1) % 3 === 0 && i < str.length - 1) {
+                            res += ".";
+                        }
+                    }
+                    return res;
+                }
+                let delivery = JSON.parse(localStorage.getItem('delivery')) || 0;
+                const totalBCV = document.querySelector('.total-bcv')
+                const totalBS = document.querySelector('.total-bs')
+                const totalDivisas = document.querySelector('.total-divisas')
+                totalBCV.textContent = `${(parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery)).toFixed(2)} BCV`;
+                totalDivisas.textContent = `$${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)) + parseInt(delivery)}`;
+                (async () => {
+                    try {
+                        const response = await DOLLARS();
+                        const bcv = response.bcv.data
+                        totalBS.textContent = `Bs. ${numberFormat((bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)).replace('..','.')}`
+                    } catch (error) {
+                        console.error('Error DOLLARS data:', error);
+                    }
+                })();
+            }
+        }
+    }
+</script>

@@ -1166,8 +1166,16 @@ listBooks.forEach((value, index, array) => {
     });
     splide.mount();
     splide.on('move', function (e) {
-        const data = JSON.parse(document.querySelector(`.slide__${e}`)?.attributes['data-name'].textContent);
 
+        if (window.innerWidth > 620) {
+            e = e + 1
+            console.log("El valor es mayor que 620.");
+        }
+        if (e === 17) e = 0
+        const data = JSON.parse(document.querySelector(`.slide__${e}`)?.attributes['data-name'].textContent);
+        const slideCurrent = document.querySelector('.slide-current-price')
+        if (slideCurrent) slideCurrent?.setAttribute('data-name', document.querySelector(`.slide__${e}`)?.attributes['data-name'].textContent)
+        
         const nameEl = document.querySelector('.name-book');
         const hashtagsEl = document.querySelector('.hashtags');
         const bcvEl = document.querySelector('.bcv');

@@ -13,7 +13,7 @@ import { BiExport } from "react-icons/bi";
 <main>
     <h1 class="text-center text-5xl text-gray-950 font-bold mt-5">Catálogo</h1>
     <div class="search-top flex justify-center mt-10">
-        <form onsubmit="return false;" class="max-w-lg w-full">
+        <form onsubmit="return false;" class="max-w-lg md:w-full w-[300px]">
             <label for="default-search"
                 class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
             <div class="relative">
@@ -1269,10 +1269,10 @@ function data(items, text) {
                         <div class="p-3 flex items-center gap-3">
                             <img src="./images/${ image }" class="shadow-2xl" width="150" alt="BookName" />
                             <div class="flex flex-col w-full">
-                                <div class="flex flex-col text-[#404040]">
-                                    <h2 class="text-xl font-bold text-gray-600">${ book.NombreLibro }</h2>
-                                    <span class="text-md uppercase"><b>${ book.BCV }</b> bcv</span>
-                                    <span class="text-sm uppercase"><b>$${ book.Precio }</b> divisas</span>
+                                <div class="flex flex-col text-[#404040] font-bold">
+                                    <h2 class="text-xl text-[#404040] mb-6 ml-[6px] leading-[1]">${ book.NombreLibro }</h2>
+                                    <span class="text-xl font-light inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.BCV } bcv</span>
+                                    <span class="text-xl inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.Precio } divisas</span>
                                 </div>
                                  <div class="flex justify-around items-center mt-8 book-item" data-name="${ book.NombreLibro }">
                                     <button class="remove-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">-</button>
@@ -1304,17 +1304,28 @@ function data(items, text) {
                         paralelo: await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
                     }
                 }
+                function numberFormat(number) {
+                    let str = number.toString();
+                    let res = "";
+                    for (let i = 0; i < str.length; i++) {
+                        res += str[i];
+                        if ((str.length - i - 1) % 3 === 0 && i < str.length - 1) {
+                            res += ".";
+                        }
+                    }
+                    return res;
+                }
                 let delivery = JSON.parse(localStorage.getItem('delivery')) || 0;
                 const totalBCV = document.querySelector('.total-bcv')
                 const totalBS = document.querySelector('.total-bs')
                 const totalDivisas = document.querySelector('.total-divisas')
-                totalBCV.textContent = `${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery)} BCV`;
+                totalBCV.textContent = `${(parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery)).toFixed(2)} BCV`;
                 totalDivisas.textContent = `$${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)) + parseInt(delivery)}`;
                 (async () => {
                     try {
                         const response = await DOLLARS();
                         const bcv = response.bcv.data
-                        totalBS.textContent = `Bs. ${(bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)}`
+                        totalBS.textContent = `Bs. ${numberFormat((bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)).replace('..','.')}`
                     } catch (error) {
                         console.error('Error DOLLARS data:', error);
                     }
@@ -1326,7 +1337,7 @@ function data(items, text) {
         // Update styles after rendering new content
         updateStyles();
     } else {
-        result.innerHTML = `<div class="flex flex-col   "> <span>¿No está disponible? ¡Te lo conseguimos! 📚</span> <a class="text-center" target="_blank" href="https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Estoy buscando un libro y no está disponible en el catálogo." style="background-color: #404040; margin-top: 0.5rem; display: inline-block; padding: 10px 2.5rem; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
+        result.innerHTML = `<div class="flex flex-col max-w-md items-center"> <span class="text-center text-balance">¿No está disponible? <br> ¡Te lo conseguimos! 📚</span> <a class="text-center" target="_blank" href="https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Estoy buscando un libro y no está disponible en el catálogo." style="background-color: #404040; margin-top: 0.5rem; display: inline-block; padding: 10px 20px; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
             Consultar
         </a></div> `
     }
