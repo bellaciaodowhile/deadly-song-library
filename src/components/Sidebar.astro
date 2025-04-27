@@ -1,6 +1,8 @@
 ---
 import logo from '../assets/logo-only.png';
 import { BiHomeAlt2, BiBookContent, BiStar, BiMessage, BiAnchor } from "react-icons/bi";
+import { FaPiggyBank } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
 const currentUrl = Astro.url.pathname
 ---
 <div class="w-[130px] h-full fixed flex-col items-center justify-between py-10 z-10 hidden md:flex">
@@ -24,6 +26,18 @@ const currentUrl = Astro.url.pathname
         <li>
             <a href="/weare" class="bg-[#404040] w-10 h-10">
                 <BiAnchor
+                    className={`${currentUrl.includes('/weare') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
+            </a>
+        </li>
+        <li>
+            <a href="/" class="bg-[#404040] w-10 h-10">
+                <FaPiggyBank
+                    className={`${currentUrl.includes('/weare') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
+            </a>
+        </li>
+        <li>
+            <a href="/" class="bg-[#404040] w-10 h-10">
+                <TbTruckDelivery
                     className={`${currentUrl.includes('/weare') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
@@ -58,6 +72,18 @@ const currentUrl = Astro.url.pathname
         <li>
             <a href="/weare" class="bg-[#404040] w-10 h-10">
                 <BiAnchor
+                    className={`${currentUrl.includes('/weare') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
+            </a>
+        </li>
+        <li>
+            <a href="/" class="bg-[#404040] w-10 h-10">
+                <FaPiggyBank
+                    className={`${currentUrl.includes('/weare') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
+            </a>
+        </li>
+        <li>
+            <a href="/" class="bg-[#404040] w-10 h-10">
+                <TbTruckDelivery
                     className={`${currentUrl.includes('/weare') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
