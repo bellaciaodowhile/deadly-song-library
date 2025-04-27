@@ -524,6 +524,7 @@ checkout.onclick = (e) => {
     %0A%0A*Método de entrega:* ${deliveryMethod.value}
     %0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} 
     %0A%0A*Forma de pago:* ${paymentMethod.value}
+    %0A%0A*Nombre del cliente:* ${inputNameLastname.querySelector('input').value}
     ${dataTypeDelivery !== 'national' ? 
     `%0A%0A📞*Teléfono:* ${inputNumberReceive.querySelector('input').value}
     ${inputNumberPlus.querySelector('input').value !== '' ? `%0A%0A📞*Teléfono alternativo:* ${inputNumberReceive.querySelector('input').value}`: ''}
