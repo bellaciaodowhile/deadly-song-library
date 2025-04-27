@@ -425,6 +425,7 @@ delivery.forEach(item => {
             inputDateReceive.querySelector('label').textContent = 'Fecha que desea recibir su pedido'
             inputTimeReceive.querySelector('label').textContent = 'Horario disponible para recibir'
             inputTimeReceive.querySelector('input').placeholder = 'Ej: Desde las 10:00 hasta las 02:30'
+            inputNumberReceive.querySelector('label').textContent = 'Número de la persona que recibe'
         } 
         if (item.classList.contains('national')) {
             localStorage.setItem('delivery', 0);
@@ -438,6 +439,7 @@ delivery.forEach(item => {
             inputDateReceive.querySelector('label').textContent = 'Fecha que desea recibir su pedido'
             inputTimeReceive.querySelector('label').textContent = 'Horario disponible para recibir'
             inputTimeReceive.querySelector('input').placeholder = 'Ej: Desde las 10:00 hasta las 02:30'
+            inputNumberReceive.querySelector('label').textContent = 'Número de la persona que recibe'
         }
         
         if (item.classList.contains('pickup')) {
@@ -448,6 +450,7 @@ delivery.forEach(item => {
             inputDateReceive.querySelector('label').textContent = 'Fecha en la que retirará'
             inputTimeReceive.querySelector('label').textContent = 'Hora en la que retirará'
             inputTimeReceive.querySelector('input').placeholder = 'Ej: 02:00pm'
+            inputNumberReceive.querySelector('label').textContent = 'Número de la persona que retirará'
             inputNumberReceive.classList.remove('hidden')
             inputNumberPlus.classList.remove('hidden')
             inputDateReceive.classList.remove('hidden')
