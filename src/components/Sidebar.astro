@@ -10,25 +10,25 @@ const currentUrl = Astro.url.pathname
     </div>
     <ul class="flex flex-col items-center gap-5">
         <li>
-            <a href="/" class="bg-red-500 w-10 h-10">
+            <a href="/" class="bg-[#404040] w-10 h-10">
                 <BiHomeAlt2
                     className={`${currentUrl == '/' ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
         <li>
-            <a href="/books" class="bg-red-500 w-10 h-10">
+            <a href="/books" class="bg-[#404040] w-10 h-10">
                 <BiBookContent
                     className={`${currentUrl.includes('/books') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
         <li>
-            <a href="/weare" class="bg-red-500 w-10 h-10">
+            <a href="/weare" class="bg-[#404040] w-10 h-10">
                 <BiAnchor
                     className={`${currentUrl.includes('/weare') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
         <!-- <li>
-            <a href="/contact" class="bg-red-500 w-10 h-10"><BiMessage className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full" /></a>
+            <a href="/contact" class="bg-[#404040] w-10 h-10"><BiMessage className="text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full" /></a>
         </li> -->
     </ul>
     <div class="flex flex-col gap-4 text-2xl text-[#404040]">
@@ -44,19 +44,19 @@ const currentUrl = Astro.url.pathname
 <nav class="tabbar fixed bottom-0 w-full z-10 md:hidden">
     <ul class="flex items-center gap-5 justify-around">
         <li>
-            <a href="/" class="bg-red-500 w-10 h-10">
+            <a href="/" class="bg-[#404040] w-10 h-10">
                 <BiHomeAlt2
                     className={`${currentUrl == '/' ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
         <li>
-            <a href="/books" class="bg-red-500 w-10 h-10">
+            <a href="/books" class="bg-[#404040] w-10 h-10">
                 <BiBookContent
                     className={`${currentUrl.includes('/books') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
         </li>
         <li>
-            <a href="/weare" class="bg-red-500 w-10 h-10">
+            <a href="/weare" class="bg-[#404040] w-10 h-10">
                 <BiAnchor
                     className={`${currentUrl.includes('/weare') ? 'active' : ''} text-gray-500 transition-all hover:bg-gray-300 hover:scale-90 w-10 h-10 p-2 rounded-full`} />
             </a>
@@ -67,7 +67,7 @@ const currentUrl = Astro.url.pathname
 <style scoped>
     .active {
         color: white;
-        background: #E16267;
+        background: #404040;
     }
 
     .gradient-sidebar {

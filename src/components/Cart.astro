@@ -8,7 +8,7 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
 </button>
 
 <div class="cart-list fixed w-full md:w-[450px] bg-white shadow-2xl right-0 top-0 z-40 h-full overflow-auto scale-0 transition-all">
-    <div class="p-10">
+    <div class="p-5 md:p-10">
         <BiChevronLeft className="text-3xl cursor-pointer cart-list--close" />
         <h1 class="text-5xl md:text-5xl font-bold text-gray-950 text-center">Carrito</h1>
 
@@ -105,18 +105,24 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
             <div class="cards mt-5 flex flex-col gap-16 pb-64 cart-items"></div>
           </div>
     </div>
-    <div class="fixed w-full md:w-[450px] px-10 py-5 right-0 bottom-0 bg-[#404040] text-white flex flex-col items-end">
-        <div class="text-2xl font-bold">Total:</div>
-        <div class="font-bold total-bcv">$65 BCV</div> 
-        <span class="text-md total-bs font-bold">(Bs. 7372727)</span>
-        <div  class="font-bold uppercase">Pago en divisas <span class="total-divisas"></span></div>
-        <div class="flex gap-2 mt-5 w-full">
-            <button class="w-full rounded-full p-3 bg-white text-[#404040] text-md uppercase font-bold cursor-pointer transition-all hover:scale-95 checkout">
-                realizar pedido
-            </button>
-            <button class="clear-cart w-15 rounded-full p-3 bg-white text-[#404040] text-xl uppercase font-bold cursor-pointer transition-all hover:scale-95 grid place-items-center">
-                <BiSolidTrashAlt />
-            </button>
+    <div class="fixed w-full md:w-[450px] px-5 md:px-10 py-5 right-0 bottom-0 bg-white text-white flex flex-col items-end">
+        <div class="bg-[#404040] w-full p-3">
+            <div class="text-3xl font-bold mb-3">Total:</div>
+            <div class="flex justify-between text-xl">
+                <div class="total-bcv">$65 BCV</div> 
+                <span>
+                    Divisas <span class="total-divisas"></span>
+                </span>
+            </div>
+            <span class="text-2xl total-bs -mt-[3px] inline-block"></span>
+            <div class="flex gap-4 mt-5 w-full justify-end">
+                <button class="clear-cart w-13 rounded-full p-3 bg-white text-[#404040] text-xl uppercase font-bold cursor-pointer transition-all hover:scale-95 grid place-items-center">
+                    <BiSolidTrashAlt />
+                </button>
+                <button class="rounded-full p-3 bg-white text-[#404040] text-md uppercase font-bold cursor-pointer transition-all hover:scale-95 checkout">
+                    realizar pedido
+                </button>
+            </div>
         </div>
     </div>
     <a href="#" target="_blank" class="send-checkout"></a>
@@ -411,7 +417,7 @@ checkout.onclick = (e) => {
     const totalBcvBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
     const totalDivisasBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)
 
-    const message = `https://api.whatsapp.com/send?phone=+584241305636&text=*NUEVO PEDIDO 📚*%0A%0A${encodeURIComponent(booksStr)}%0A%0A*Productos:* ${paymentMethod.value !== 'Pago Móvil' ? `$${totalDivisasBooks}` : `$${totalBcvBooks}`} %0A%0A*Método de entrega:* ${deliveryMethod.value}%0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} %0A%0A*Forma de pago:* ${paymentMethod.value}%0A%0A*Nombre del cliente:* ${inputNameLastname.querySelector('input').value}${localStorage.getItem('delivery') == '5' ? `%0A%0A*Zona delivery:* ${inputZone.querySelector('input').value}`:''}`;
+    const message = `https://api.whatsapp.com/send?phone=+584241305636&text=*NUEVO PEDIDO 📚*%0A%0A${encodeURIComponent(booksStr)}%0A%0A*Productos:* ${paymentMethod.value !== 'Pago Móvil' ? `$${totalDivisasBooks}` : `$${totalBcvBooks}`} %0A%0A*Método de entrega:* ${deliveryMethod.value}‼%0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} %0A%0A*Forma de pago:* ${paymentMethod.value}%0A%0A*Nombre del cliente:* ${inputNameLastname.querySelector('input').value}${localStorage.getItem('delivery') == '5' ? `%0A%0A*Zona de entrega:* ${inputZone.querySelector('input').value}‼`:''}`;
 
     sendCheckout.href = message
 
