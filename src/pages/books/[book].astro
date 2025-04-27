@@ -70,7 +70,7 @@ const isLoading = await DATA();
                 <div class="text-[#404040] text-4xl md:text-7xl font-bold">{isLoading ? data?.BCV : '...'} BCV</div>
                 <div class="uppercase text-2xl text-[#404040] mt-2">Pago en divisas <span class="font-bold">${data?.Precio}</span></div>
             </div>
-            <a target="_blank" class="w-full md:w-fit px-10 text-center p-3 hover:-translate-y-1 mt-5" href="https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${book.NombreLibro}. ¿Sigue disponible?" style="background-color: #404040; display: inline-block; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
+            <a target="_blank" class="w-full md:w-fit px-10 text-center p-3 hover:-translate-y-1 mt-5" href={`https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${data?.NombreLibro}. ¿Sigue disponible?`} style="background-color: #404040; display: inline-block; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
                 comprar
             </a>
             <a target="_blank" class="w-full md:w-fit px-10 text-center p-3 hover:-translate-y-1 mt-5 flex items-center gap-2 justify-center" href={`whatsapp://send?text=Aquí puedes verlo, ${data?.NombreLibro}: https://libreriacantomortal.vercel.app/books/${book} `} data-action="share/whatsapp/share" style="background-color: #404040; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">

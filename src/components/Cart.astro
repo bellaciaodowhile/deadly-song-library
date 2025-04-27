@@ -13,7 +13,6 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
         <h1 class="text-5xl md:text-5xl font-bold text-gray-950 text-center">Carrito</h1>
 
         <div class="accordions is-first-expanded flex flex-col gap-3 mt-5">
-           
             <article class="accordion">
               <header class="accordion-head p-5 bg-[#00000026] text-[#404040] rounded-xl flex justify-between">
                 <span class="font-bold">Métodos de pago</span>
@@ -94,10 +93,33 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
                         <label for="first_name" class="block mb-2 text-sm  text-[#404040] font-bold">Nombre y Apellido</label>
                         <input type="text" id="first_name" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040bd] placeholder:font-semibold" placeholder="Peter Johnson" required />
                     </div>
-                    <div class="mt-3 input-zone invisible transition-all">
-                        <label for="zone" class="block mb-2 text-sm font-bold text-[#404040]">Zona de entrega para el delivery</label>
-                        <input type="text" id="zone" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040bd] placeholder:font-semibold" placeholder="Ej: Bello Monte" required />
+                    <div class="input-number-receive mt-3">
+                        <label for="first_name" class="block mb-2 text-sm  text-[#404040] font-bold">Número de la persona que recibe</label>
+                        <input type="text" id="first_name" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040bd] placeholder:font-semibold" placeholder="Ej: 04241305636" required />
                     </div>
+                    <div class="input-date-receive mt-3">
+                        <label for="first_name" class="block mb-2 text-sm  text-[#404040] font-bold">Fecha que desea recibir su pedido</label>
+                        <input type="text" id="first_name" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040bd] placeholder:font-semibold" placeholder="Ej: Miércoles, 15 de Enero" required />
+                    </div>
+                    <div class="input-time-receive mt-3">
+                        <label for="first_name" class="block mb-2 text-sm  text-[#404040] font-bold">Horario disponible para recibir</label>
+                        <input type="text" id="first_name" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040bd] placeholder:font-semibold" placeholder="Ej: Desde las 10:00 hasta las 02:30" required />
+                    </div>
+                    <div class="data-zone hidden">
+                        <div class="mt-3 input-zone">
+                            <label for="zone" class="block mb-2 text-sm font-bold text-[#404040]">Zona de entrega para el delivery</label>
+                            <input type="text" id="zone" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040bd] placeholder:font-semibold" placeholder="Ej: Bello Monte" required />
+                        </div>
+                        <div class="mt-3 input-reference">
+                            <label for="zone" class="block mb-2 text-sm font-bold text-[#404040]">Punto de referencia</label>
+                            <input type="text" id="zone" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040bd] placeholder:font-semibold" placeholder="Ej: Al lado de Cinecitta, por la entrada del metro" required />
+                        </div>
+                        <div class="mt-3 input-plus">
+                            <label for="zone" class="block mb-2 text-sm font-bold text-[#404040]">Información adicional</label>
+                            <input type="text" id="zone" class="bg-gray-50 font-semibold border border-gray-300 text-[#404040] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-[#404040bd] placeholder:font-semibold" placeholder="Ej: Necesito $5 vuelto, llamar antes de acercarse, solo mensajes de text, etc" required />
+                        </div>
+                    </div>
+                    
                   </div>
                 </div>
             </article>
@@ -368,17 +390,21 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
 		Accordion.init(accordions[i]);
 	}
 })();
+const dataZone = document.querySelector('.data-zone'); // 315px
 const inputNameLastname = document.querySelector('.input-nameLastname');
 const inputZone = document.querySelector('.input-zone');
+
+
 const delivery = document.querySelectorAll('.delivery');
 delivery.forEach(item => {
     item.onclick = (e) => {
         if (item.classList.contains('delivery-caracas')) {
             localStorage.setItem('delivery', 5);
-            inputZone.classList.remove('invisible')
+            dataZone.classList.remove('hidden')
+            console.log(dataZone)
         } else {
             localStorage.setItem('delivery', 0);
-            inputZone.classList.add('invisible')
+            dataZone.classList.add('hidden')
         }
         reloadTotals();
     }
@@ -386,7 +412,7 @@ delivery.forEach(item => {
 const dataDelivery = localStorage.getItem('delivery');
 if (dataDelivery == '5') {
     delivery[2].previousElementSibling.checked = true;
-    inputZone.classList.remove('invisible')
+    dataZone.classList.remove('hidden')
 }
 
 const checkout = document.querySelector('.checkout');
