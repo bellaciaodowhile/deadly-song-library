@@ -1313,6 +1313,9 @@ function data(items, text) {
                             res += ".";
                         }
                     }
+                    if (res.length >= 3) {
+                        res = res.slice(0, res.length - 4) + ',' + res.slice(res.length - 2);
+                    }
                     return res;
                 }
                 let delivery = JSON.parse(localStorage.getItem('delivery')) || 0;

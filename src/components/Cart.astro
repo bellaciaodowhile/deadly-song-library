@@ -58,7 +58,7 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
               <div class="accordion-body">
                 <div class="content p-5">
                     <div class="custom-choose mb-3 uppercase">
-                        <input type="radio" id="delivery-nacional" value="Envío nacional (a todo el país) (pagas al recibir)" name="delivery-method">
+                        <input type="radio" id="delivery-nacional" value="Envío nacional" name="delivery-method">
                         <label for="delivery-nacional" class="delivery flex flex-col items-center"><span class="font-bold text-2xl">Envío nacional</span> <span class="text-sm">todo el país (cobro destino)</span></label>
 
                         <input type="radio" id="pick-up" value="Pick-up Santa Mónica o prados del este $0" name="delivery-method">
@@ -67,7 +67,7 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
                             <span class="text-sm">santa mónica o prado del este</sp>
                         </label>
 
-                        <input type="radio" id="delivery-caracas" value="Delivery (Caracas) $5" name="delivery-method">
+                        <input type="radio" id="delivery-caracas" value="Delivery $5" name="delivery-method">
                         <label for="delivery-caracas" class="delivery delivery-caracas flex justify-center items-center gap-[4px]">
                             <div class="flex flex-col ml-[9px]">
                                 <span class="text-[26px] font-bold">delivery</span>
@@ -288,6 +288,9 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
                 res += ".";
             }
         }
+        if (res.length >= 3) {
+            res = res.slice(0, res.length - 4) + ',' + res.slice(res.length - 2);
+        }
         return res;
     }
     function reloadTotals() {
@@ -390,9 +393,14 @@ import { BiChevronLeft, BiSolidTrashAlt  } from "react-icons/bi";
 		Accordion.init(accordions[i]);
 	}
 })();
-const dataZone = document.querySelector('.data-zone'); // 315px
+const dataZone = document.querySelector('.data-zone'); // 235px
 const inputNameLastname = document.querySelector('.input-nameLastname');
+const inputNumberReceive = document.querySelector('.input-number-receive');
+const inputDateReceive = document.querySelector('.input-date-receive');
+const inputTimeReceive = document.querySelector('.input-time-receive');
 const inputZone = document.querySelector('.input-zone');
+const inputReference = document.querySelector('.input-reference');
+const inputPlus = document.querySelector('.input-plus');
 
 
 const delivery = document.querySelectorAll('.delivery');
@@ -401,10 +409,12 @@ delivery.forEach(item => {
         if (item.classList.contains('delivery-caracas')) {
             localStorage.setItem('delivery', 5);
             dataZone.classList.remove('hidden')
-            console.log(dataZone)
+            console.log(dataZone.parentElement.parentElement)
+            dataZone.parentElement.parentElement.style.height = `607px`
         } else {
             localStorage.setItem('delivery', 0);
             dataZone.classList.add('hidden')
+            dataZone.parentElement.parentElement.style.height = `360px`
         }
         reloadTotals();
     }
@@ -432,18 +442,30 @@ checkout.onclick = (e) => {
     if (!deliveryMethod) {
         return alert('No ha elegido un método de entrega');
     }
-    if (inputNameLastname.querySelector('input').value == '') {
-        return alert('Se requiere llenar los datos del cliente')
+    if (inputNameLastname.querySelector('input').value == '' ||
+        inputNumberReceive.querySelector('input').value == '' ||
+        inputDateReceive.querySelector('input').value == '' ||
+        inputTimeReceive.querySelector('input').value == '') {
+        return alert('Se requiere colocar los datos del cliente')
     }
     if (inputZone.querySelector('input').value == '' && localStorage.getItem('delivery') == '5') {
-        return alert('Se requiere llenar los datos del cliente')
+        return alert('Se requiere colocar los datos del cliente')
+    }
+    if (inputZone.querySelector('input').value == '' && localStorage.getItem('delivery') == '5') {
+        return alert('Se requiere colocar la zona de entrega para el delivery')
+    }
+    if (inputReference.querySelector('input').value == '' && localStorage.getItem('delivery') == '5') {
+        return alert('Se requiere colocar el punto de referencia')
+    }
+    if (inputPlus.querySelector('input').value == '' && localStorage.getItem('delivery') == '5') {
+        return alert('Se requiere colocar la información adicional')
     }
 
     const booksStr = books.map(book => { return `• ${book.quantity} x ${book.NombreLibro} *$${paymentMethod.value != 'Pago Móvil' ? book.totalDivisas : book.totalBCV}*\n`}).join('')
     const totalBcvBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)
     const totalDivisasBooks = books.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)
 
-    const message = `https://api.whatsapp.com/send?phone=+584241305636&text=*NUEVO PEDIDO 📚*%0A%0A${encodeURIComponent(booksStr)}%0A%0A*Productos:* ${paymentMethod.value !== 'Pago Móvil' ? `$${totalDivisasBooks}` : `$${totalBcvBooks}`} %0A%0A*Método de entrega:* ${deliveryMethod.value}‼%0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} %0A%0A*Forma de pago:* ${paymentMethod.value}%0A%0A*Nombre del cliente:* ${inputNameLastname.querySelector('input').value}${localStorage.getItem('delivery') == '5' ? `%0A%0A*Zona de entrega:* ${inputZone.querySelector('input').value}‼`:''}`;
+    const message = `https://api.whatsapp.com/send?phone=+584241305636&text=*NUEVO PEDIDO 📚*%0A%0A${encodeURIComponent(booksStr)}%0A%0A*Productos:* ${paymentMethod.value !== 'Pago Móvil' ? `$${totalDivisasBooks}` : `$${totalBcvBooks}`} %0A%0A*Método de entrega:* ${deliveryMethod.value}%0A%0A*Total:* ${paymentMethod.value !== 'Pago Móvil' ? totalDivisas.textContent : `$${totalBCV.textContent} (${totalBS.textContent})`} %0A%0A*Forma de pago:* ${paymentMethod.value}%0A%0A*Nombre del cliente:* ${inputNameLastname.querySelector('input').value} %0A%0A*Número de la persona que recibe:* ${inputNumberReceive.querySelector('input').value}%0A%0A*Fecha de la entrega:* ${inputDateReceive.querySelector('input').value}%0A%0A*Horario disponible:* ${inputTimeReceive.querySelector('input').value}${localStorage.getItem('delivery') == '5' ? `%0A%0A*Zona de entrega:* ${inputZone.querySelector('input').value}%0A*Punto de referencia:* ${inputReference.querySelector('input').value}%0A*Información adicional:* ${inputPlus.querySelector('input').value}`:''}`;
 
     sendCheckout.href = message
 
