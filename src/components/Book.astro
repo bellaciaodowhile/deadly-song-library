@@ -1221,6 +1221,7 @@ function data(items, text) {
                 </div>
             </div>`;
         });
+        html += `<div class="flex flex-col max-w-md items-center mt-10"> <span class="text-center text-balance">¿No está disponible? <br> ¡Te lo conseguimos! 📚</span> <a class="text-center" target="_blank" href="https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Estoy buscando un libro y no está disponible en el catálogo." style="background-color: #404040; margin-top: 0.5rem; display: inline-block; padding: 10px 20px; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">Consultar</a></div>`;
 
         // Update the innerHTML once
         result.innerHTML = html;
@@ -1267,10 +1268,10 @@ function data(items, text) {
                     cartitems.innerHTML += `
                     <div class="shadow-2xl">
                         <div class="p-3 flex items-center gap-3">
-                            <img src="./images/${ image }" class="shadow-2xl" width="150" alt="BookName" />
+                            <img src="/images/${ image }" class="shadow-2xl" width="150" alt="BookName" />
                             <div class="flex flex-col w-full">
                                 <div class="flex flex-col text-[#404040] font-bold">
-                                    <h2 class="text-xl text-[#404040] mb-6 ml-[6px] leading-[1]">${ book.NombreLibro }</h2>
+                                    <h2 class="text-xl text-[#404040] mb-6 ml-[6px] leading-[1]">hola${ book.NombreLibro }</h2>
                                     <span class="text-xl font-light inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.BCV } bcv</span>
                                     <span class="text-xl inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.Precio } divisas</span>
                                 </div>
@@ -1334,7 +1335,7 @@ function data(items, text) {
                     }
                 })();
             }
-
+            
         }
 
         // Update styles after rendering new content

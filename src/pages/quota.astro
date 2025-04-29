@@ -1,0 +1,107 @@
+---
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout title="Pago en cuotas">
+    <h1 class="text-5xl md:text-5xl font-bold text-gray-900"> 
+        Métodos de pago y cuotas
+    </h1>
+    <p class="mt-14 text-xl md:text-4xl text-[#404040]">Nuestras formas de pago son:</p>
+    <div class="flex flex-col md:flex-row flex-wrap mt-10 gap-5 items-center">
+        <div class="text-xl w-full md:w-fit justify-center md:text-2xl bg-[#404040] text-white p-3 md:p-5 rounded-2xl flex items-center">
+            <span>Zelle</span>
+        </div>
+        <div class="text-xl w-full md:w-fit justify-center md:text-2xl bg-[#404040] text-white p-3 md:p-5 rounded-2xl flex items-center">
+            <span>Efectivo</span>
+        </div>
+        <div class="text-xl w-full md:w-fit justify-center md:text-2xl bg-[#404040] text-white p-3 md:p-5 rounded-2xl flex items-center">
+            <span>Págo Móvil</span>
+        </div>
+        <div class="text-xl w-full md:w-fit justify-center md:text-2xl bg-[#404040] text-white p-3 md:p-5 rounded-2xl flex items-center">
+            <span>PayPal</span>
+        </div>
+        <div class="text-xl w-full md:w-fit justify-center md:text-2xl bg-[#404040] text-white p-3 md:p-5 rounded-2xl flex items-center">
+            <span>Binance Pay</span>
+        </div>
+        <div class="text-xl w-full md:w-fit justify-center md:text-2xl bg-[#404040] text-white p-3 md:p-5 rounded-2xl flex items-center">
+            <span>Zinli</span>
+        </div>
+        <div class="text-xl w-full md:w-fit justify-center md:text-2xl bg-[#404040] text-white p-3 md:p-5 rounded-2xl flex items-center">
+            <span>MoneyWays</span>
+        </div>
+    </div>
+    <h3 class="text-xl md:text-4xl mt-14 text-[#404040] font-bold">¡También aceptamos pagos en cuotas!</h3>
+    <div class="accordions is-first-expanded flex flex-col gap-3 mt-10">
+        <article class="accordion">
+            <header class="accordion-head p-5 bg-[#D6D6D0] text-[#404040] rounded-xl flex justify-between">
+              <span class="font-bold text-md md:text-xl">Cuotas sin fecha límite</span>
+              <span class="icon has-text-primary">
+                  <i class="fas fa-chevron-right"></i>
+              </span>
+            </header>
+   
+            <div class="accordion-body">
+              <div class="content p-5">
+                <p class="text-xl md:text-2xl text-[#404040]">Antes de comenzar, quiero comentarte que el siguiente mensaje puede ser un poco extenso, pero vale la pena leerlo para tener toda la información clara y asegurar que aproveches al máximo nuestros servicios. ¡Gracias por tu comprensión!</p>
+                
+              </div>
+            </div>
+        </article>
+        <article class="accordion">
+            <header class="accordion-head p-5 bg-[#D6D6D0] text-[#404040] rounded-xl flex justify-between">
+              <span class="font-bold text-md md:text-xl">Descubre cómo comprar tus libros en cuotas!📚</span>
+              <span class="icon has-text-primary">
+                  <i class="fas fa-chevron-right"></i>
+              </span>
+            </header>
+   
+            <div class="accordion-body">
+              <div class="content p-5">
+                <p class="text-xl md:text-2xl text-[#404040]">Te ofrecemos la flexibilidad de abonar desde 1$ hasta el monto que desees, adaptándonos a tus posibilidades.</p>
+                <p class="text-xl md:text-2xl text-[#404040] mt-5">¡Sin fechas límite ni plazos fijos! Tú decides cuándo realizar los abonos y avanzar en la adquisición de tus libros favoritos con nosotros.</p>
+                <p class="text-xl md:text-2xl text-[#404040] mt-5">Cada abono se suma a tu “saldo disponible en la librería”, acercándote cada vez más a obtener el libro que tanto deseas cuando alcances su valor y esté disponible.</p>
+                <p class="text-xl md:text-2xl text-[#404040] mt-5">Además, aceptamos múltiples métodos de pago como pago móvil, efectivo, Binance Pay, Paypal, Zelle, MoneyWays y Zinli, brindándote comodidad y facilidad en tu experiencia de compra.</p>
+                <p class="text-xl md:text-2xl text-[#404040] mt-5">Queremos asegurarte que estamos comprometidos contigo y tu satisfacción. Sin embargo, es importante destacar que el dinero abonado no es retornable. Por eso, te invitamos a realizar tus abonos con plena seguridad y confianza, considerando tus prioridades financieras.</p>
+                
+              </div>
+            </div>
+        </article>
+        
+      
+    </div>
+    <h3 class="text-xl md:text-4xl mt-14 text-[#404040] font-bold">Preguntas frecuentes</h3>
+    <div class="accordions is-first-expanded flex flex-col gap-3 mt-10">
+        <article class="accordion">
+            <header class="accordion-head p-5 bg-[#D6D6D0] text-[#404040] rounded-xl flex justify-between">
+              <span class="font-bold text-md md:text-xl">📍 ¿Cómo se maneja la tasa de cambio si abono en bolívares?</span>
+              <span class="icon has-text-primary">
+                  <i class="fas fa-chevron-right"></i>
+              </span>
+            </header>
+   
+            <div class="accordion-body">
+              <div class="content p-5">
+                <p class="text-xl md:text-2xl text-[#404040]">No te preocupes por ajustar la diferencia de tasa. Los bolívares que nos envíes serán convertidos a dólares según la tasa vigente en el momento del abono. Así, mantendrás el valor de tus abonos, sin sorpresas.</p>
+              </div>
+            </div>
+        </article>
+        <article class="accordion">
+            <header class="accordion-head p-5 bg-[#D6D6D0] text-[#404040] rounded-xl flex justify-between">
+              <span class="font-bold text-md md:text-xl">🔖 ¿Puedo apartar un libro mediante abonos?</span>
+              <span class="icon has-text-primary">
+                  <i class="fas fa-chevron-right"></i>
+              </span>
+            </header>
+            <div class="accordion-body">
+              <div class="content p-5">
+                <p class="text-xl md:text-2xl text-[#404040]">En lugar de apartar un libro, te brindamos la opción de acumular un saldo disponible en tu cuenta. Cuando alcances el valor del libro que deseas y esté disponible, podrás canjearlo y obtenerlo rápidamente. ¡Sin complicaciones ni demoras!</p>
+                <p class="text-xl md:text-2xl text-[#404040] mt-5">Recuerda que cada abono que realices te acerca a tu próxima lectura. Si tienes más consultas, no dudes en comunicarte al 0424-1305636.</p>
+              </div>
+            </div>
+        </article>
+        
+      
+    </div>
+
+</Layout>

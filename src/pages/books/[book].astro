@@ -70,10 +70,14 @@ const isLoading = await DATA();
                 <div class="text-[#404040] text-4xl md:text-7xl font-bold">{isLoading ? data?.BCV : '...'} BCV</div>
                 <div class="uppercase text-2xl text-[#404040] mt-2">Pago en divisas <span class="font-bold">${data?.Precio}</span></div>
             </div>
-            <a target="_blank" class="w-full md:w-fit px-10 text-center p-3 hover:-translate-y-1 mt-5" href={`https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${data?.NombreLibro}. ¿Sigue disponible?`} style="background-color: #404040; display: inline-block; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
-                comprar
+            <a target="_blank" class="w-full md:w-fit py-5 px-10 text-center hover:-translate-y-1 mt-5" href={`https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${data?.NombreLibro}. ¿Sigue disponible?`} style="background-color: #404040; display: inline-block; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
+                Consultar
             </a>
-            <a target="_blank" class="w-full md:w-fit px-10 text-center p-3 hover:-translate-y-1 mt-5 flex items-center gap-2 justify-center" href={`whatsapp://send?text=Aquí puedes verlo, ${data?.NombreLibro}: https://libreriacantomortal.vercel.app/books/${book} `} data-action="share/whatsapp/share" style="background-color: #404040; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
+            <a href="javascript:void(0);" class="add-cart-book px-10 text-center py-5" data-name={JSON.stringify(data)} style="background-color: #404040; margin-top: 0.5rem; display: inline-flex; gap: 5px; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
+                <span>Añadir</span>
+                <img src="https://www.svgrepo.com/show/493949/cart-lines-1.svg" width="20" style="filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(80deg) brightness(107%) contrast(101%);" />
+            </a>
+            <a target="_blank" class="w-full md:w-fit px-10 text-center py-5 hover:-translate-y-1 mt-5 flex items-center gap-2 justify-center" href={`whatsapp://send?text=Aquí puedes verlo, ${data?.NombreLibro}: https://libreriacantomortal.vercel.app/books/${book} `} data-action="share/whatsapp/share" style="background-color: #404040; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256"
                 style="fill:#FFFFFF;">
                 <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M25,2c-12.682,0 -23,10.318 -23,23c0,3.96 1.023,7.854 2.963,11.29l-2.926,10.44c-0.096,0.343 -0.003,0.711 0.245,0.966c0.191,0.197 0.451,0.304 0.718,0.304c0.08,0 0.161,-0.01 0.24,-0.029l10.896,-2.699c3.327,1.786 7.074,2.728 10.864,2.728c12.682,0 23,-10.318 23,-23c0,-12.682 -10.318,-23 -23,-23zM36.57,33.116c-0.492,1.362 -2.852,2.605 -3.986,2.772c-1.018,0.149 -2.306,0.213 -3.72,-0.231c-0.857,-0.27 -1.957,-0.628 -3.366,-1.229c-5.923,-2.526 -9.791,-8.415 -10.087,-8.804c-0.295,-0.389 -2.411,-3.161 -2.411,-6.03c0,-2.869 1.525,-4.28 2.067,-4.864c0.542,-0.584 1.181,-0.73 1.575,-0.73c0.394,0 0.787,0.005 1.132,0.021c0.363,0.018 0.85,-0.137 1.329,1.001c0.492,1.168 1.673,4.037 1.819,4.33c0.148,0.292 0.246,0.633 0.05,1.022c-0.196,0.389 -0.294,0.632 -0.59,0.973c-0.296,0.341 -0.62,0.76 -0.886,1.022c-0.296,0.291 -0.603,0.606 -0.259,1.19c0.344,0.584 1.529,2.493 3.285,4.039c2.255,1.986 4.158,2.602 4.748,2.894c0.59,0.292 0.935,0.243 1.279,-0.146c0.344,-0.39 1.476,-1.703 1.869,-2.286c0.393,-0.583 0.787,-0.487 1.329,-0.292c0.542,0.194 3.445,1.604 4.035,1.896c0.59,0.292 0.984,0.438 1.132,0.681c0.148,0.242 0.148,1.41 -0.344,2.771z"></path></g></g>
@@ -82,6 +86,122 @@ const isLoading = await DATA();
         </div>
        
     </div>
-
-
 </Layout>
+<script type="text/javascript">
+const addCartBook = document.querySelector('.add-cart-book');
+addCartBook.onclick = (e) => {
+    let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+    e.preventDefault();
+    const data = JSON.parse(addCartBook.attributes['data-name'].textContent);
+    const existingBookIndex = cart.findIndex(book => book.NombreLibro === data.NombreLibro);
+    const iconCart = document.querySelector('.icon-cart');
+    console.log(data)
+
+    iconCart.classList.remove('scale-0')
+    
+    if (existingBookIndex !== -1) {
+        cart[existingBookIndex].quantity += 1;
+        cart[existingBookIndex].totalBCV = (cart[existingBookIndex].quantity * Number(cart[existingBookIndex].BCV));
+        cart[existingBookIndex].totalDivisas = (cart[existingBookIndex].quantity * Number(cart[existingBookIndex].Precio));
+    } else {
+        data.quantity = 1;
+        data.totalBCV = data.BCV;
+        data.totalDivisas = data.Precio;
+
+        cart.push(data);
+    }
+    
+    const totalQuantity = cart.reduce((sum, book) => sum + book.quantity, 0);
+    iconCart.querySelector('.number').textContent = totalQuantity;
+
+    localStorage.setItem(cartKey, JSON.stringify(cart));
+    console.log('Carrito actualizado:', cart);
+    handleCartList();
+    console.log('Añadiendo...')
+
+}
+function handleCartList() {
+    let data = JSON.parse(localStorage.getItem(cartKey)) || [];
+    console.log({
+        data,
+        test: 'key'
+    })
+    cartitems.innerHTML = '';
+    if (data.length > 0) {
+        data.map((book, index) => {
+            const bookImage = book.Imagen.split('/')
+            const image = bookImage[bookImage.length - 1]
+            cartitems.innerHTML += `
+            <div class="shadow-2xl">
+                <div class="p-3 flex items-center gap-3">
+                    <img src="/images/${ image }" class="shadow-2xl" width="150" alt="BookName" />
+                    <div class="flex flex-col w-full">
+                        <div class="flex flex-col text-[#404040] font-bold">
+                            <h2 class="text-xl text-[#404040] mb-6 ml-[6px] leading-[1]">hola${ book.NombreLibro }</h2>
+                            <span class="text-xl font-light inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.BCV } bcv</span>
+                            <span class="text-xl inline-flex mr-[18px] justify-end  gap-1 uppercase">$${ book.Precio } divisas</span>
+                        </div>
+                            <div class="flex justify-around items-center mt-8 book-item" data-name="${ book.NombreLibro }">
+                            <button class="remove-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">-</button>
+                            <span class="text-3xl md:text-6xl font-bold text-[#404040] book-quantity">${ book.quantity }</span>
+                            <button class="add-book cursor-pointer transition-all active:scale-90 grid place-items-center text-xl md:text-2xl rounded-full bg-[#404040] w-7 md:w-8 h-7 md:h-8 font-semibold text-white">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            
+            const triggersAdd = document.querySelectorAll('.add-book')
+            const triggersRm = document.querySelectorAll('.remove-book')
+            triggersAdd.forEach(x => {
+                x.onclick = (e) => {
+                    e.preventDefault()
+                    handleQuantity(1, x.parentElement.attributes['data-name'].textContent)
+                }
+            })
+            triggersRm.forEach(x => {
+                x.onclick = (e) => {
+                    e.preventDefault()
+                    handleQuantity(-1, x.parentElement.attributes['data-name'].textContent)
+                } 
+            })
+        })
+        async function DOLLARS() {
+            return {
+                bcv: await axios.get('https://ve.dolarapi.com/v1/dolares/oficial'),
+                paralelo: await axios.get('https://ve.dolarapi.com/v1/dolares/paralelo')
+            }
+        }
+        function numberFormat(number) {
+            let str = number.toString();
+            let res = "";
+            for (let i = 0; i < str.length; i++) {
+                res += str[i];
+                if ((str.length - i - 1) % 3 === 0 && i < str.length - 1) {
+                    res += ".";
+                }
+            }
+            if (res.length >= 3) {
+                res = res.slice(0, res.length - 4) + ',' + res.slice(res.length - 2);
+            }
+            return res;
+        }
+        let delivery = JSON.parse(localStorage.getItem('delivery')) || 0;
+        const totalBCV = document.querySelector('.total-bcv')
+        const totalBS = document.querySelector('.total-bs')
+        const totalDivisas = document.querySelector('.total-divisas')
+        totalBCV.textContent = `${(parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery)).toFixed(2)} BCV`;
+        totalDivisas.textContent = `$${parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalDivisas), 0).toFixed(2)) + parseInt(delivery)}`;
+        (async () => {
+            try {
+                const response = await DOLLARS();
+                const bcv = response.bcv.data
+                totalBS.textContent = `Bs. ${numberFormat((bcv.promedio * (parseFloat(data.reduce((sum, book) => Number(sum) + Number(book.totalBCV), 0).toFixed(2)) + parseInt(delivery))).toFixed(2)).replace('..','.')}`
+            } catch (error) {
+                console.error('Error DOLLARS data:', error);
+            }
+        })();
+    }
+    
+}
+
+</script>
