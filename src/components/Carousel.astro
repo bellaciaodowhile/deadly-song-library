@@ -1127,7 +1127,7 @@ listBooks.forEach((value, index, array) => {
                   {
                     listBooks.map((book, index) => (
                         <li class={`splide__slide pt-[100px] transition-all flex items-end slide__${index}`} data-name={JSON.stringify(book)}>
-                            <img src={`${ book.Imagen }?raw=true`} width="90%" alt={book.NombreLibro} />
+                            <img src={`/images/${ book.Imagen.split('/')[book.Imagen.split('/').length - 1] }`} width="90%" alt={book.NombreLibro} />
                         </li>
                     ))
                 }
