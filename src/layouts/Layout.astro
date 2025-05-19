@@ -37,7 +37,7 @@ const { title, image } = Astro.props
 
 		<main class="flex relative">
 			<Sidebar />
-			<div class="content pl-[20px] sm:pl-[40px] md:pl-[190px] md:py-[30px] pr-[20px] lg:pr-[50px] relative m-auto pb-10 md:pb-10 pt-10">
+			<div class="content pl-[20px] sm:pl-[40px] md:pl-[190px] md:py-[30px] pr-[20px] lg:pr-[50px] relative m-auto pb-20 md:pb-10 pt-10">
 				<slot />
 			</div>
 			<a href="https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Vengo de la página web. Me gustaría obtener más información 📚" target="_blank" class="fixed bottom-20 md:bottom-10 right-5 lg:right-10 z-20 bg-white rounded-full">
@@ -45,9 +45,9 @@ const { title, image } = Astro.props
 			</a>
 			<Cart />
 		</main>
-		<footer class="md:hidden mt-20 bg-[#404040] p-16 pb-32 w-full mx-auto relative">
+		<footer class={`md:hidden mt-20 bg-[#404040] p-16 pb-32 w-full mx-auto relative ${title == 'Inicio' ? 'hidden': ''}`}>
 			<h4 class="text-xl font-bold text-[#eee]">Librería Canto Mortal</h4>
-			<p class="text-[#ccccccea] mt-5">Tenemos más de cuatro años presentes en el país, cada libro que ofrecemos es una invitación a un mundo nuevo, una nueva aventura y otra oportunidad para enamorarte.</p>
+			<p class={`text-[#ccccccea] mt-5 ${title == 'Nosotros' ? 'hidden' : ''}`}>Tenemos más de cuatro años presentes en el país, cada libro que ofrecemos es una invitación a un mundo nuevo, una nueva aventura y otra oportunidad para enamorarte.</p>
 			<h4 class="text-md mt-7 font-semibold text-[#eee]">Contáctanos</h4>
 			<div class="flex flex-col gap-4 text-2xl text-[#eee] mt-5">
 				<a href="https://www.instagram.com/libreriacantomortal/" class="transition-all flex items-center gap-2" target="_blank">

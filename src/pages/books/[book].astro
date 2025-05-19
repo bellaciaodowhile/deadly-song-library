@@ -73,7 +73,7 @@ const isLoading = await DATA();
             <a target="_blank" class="w-full md:w-[202px] py-5 px-10 text-center hover:-translate-y-1 mt-5" href={`https://api.whatsapp.com/send?phone=+584241305636&text=¡Hola! Me interesa el libro ${data?.NombreLibro}. ¿Sigue disponible?`} style="background-color: #404040; display: inline-block; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
                 Consultar
             </a>
-            <a href="javascript:void(0);" class="add-cart-book md:w-[202px]  px-10 text-center py-5 w-full flex items-center justify-center" data-name={JSON.stringify(data)} style="background-color: #404040; margin-top: 0.5rem; display: inline-flex; gap: 5px; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
+            <a href="javascript:void(0);" class="add-cart-book md:w-[202px]  px-10 text-center py-5 w-full flex items-center justify-center mt-5" data-name={JSON.stringify(data)} style="background-color: #404040; display: inline-flex; gap: 5px; color: white; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 9999px;">
                 <span>Añadir</span>
                 <img src="https://www.svgrepo.com/show/493949/cart-lines-1.svg" width="20" style="filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(80deg) brightness(107%) contrast(101%);" />
             </a>
